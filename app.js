@@ -1215,7 +1215,7 @@ function renderStrategicProjectsRadar(allTasks) {
 
     groupTr.innerHTML = `
       <td>
-        <div style="display: flex; align-items: center; gap: 0.65rem;">
+        <div class="project-group-header-cell">
           <button class="btn-tree-expand ${isGroupExpanded ? 'is-expanded' : ''}" type="button" title="${isGroupExpanded ? 'Collapse' : 'Expand'} Sub-tasks">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </button>
