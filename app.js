@@ -997,7 +997,10 @@ function parseChecklistStats(task) {
       const items = JSON.parse(task.checklistSummary);
       if (Array.isArray(items)) {
         total = items.length;
-        done = items.filter(it => it.isChecked).length;
+        done = items.filter(it => {
+          const val = it.value || it;
+          return Boolean(val.isChecked ?? it.isChecked ?? false);
+        }).length;
       }
     } catch (e) {
       const doneMatches = task.checklistSummary.match(/"isChecked":true/g);
@@ -1156,7 +1159,7 @@ function renderStrategicProjectsRadar(allTasks) {
   tableBody.innerHTML = "";
 
   if (groupList.length === 0) {
-    tableBody.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-muted);">No projects match the selected domain.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">No projects match the selected domain.</td></tr>';
     return;
   }
 
@@ -1177,7 +1180,17 @@ function renderStrategicProjectsRadar(allTasks) {
       groupClDone += cl.done;
       groupClTotal += cl.total;
     });
-    const groupClPct = groupClTotal > 0 ? Math.round((groupClDone / groupClTotal) * 100) : 0;
+    const groupClPct = groupClTotal > 0 ? Math.round((groupClDone / groupClTotal) * 100) : avgProgress;
+
+    const groupProgressHtml = groupClTotal > 0
+      ? `<div class="project-checklist-progress-cell">
+          <div class="strategic-progress-bar" style="width: 80px;"><div class="fill" style="width: ${groupClPct}%"></div></div>
+          <span class="checklist-progress-text"><strong>${groupClDone}/${groupClTotal}</strong> (${groupClPct}%)</span>
+        </div>`
+      : `<div class="project-checklist-progress-cell">
+          <div class="strategic-progress-bar" style="width: 80px;"><div class="fill" style="width: ${avgProgress}%"></div></div>
+          <span class="checklist-progress-text">${avgProgress}%</span>
+        </div>`;
 
     // Unique Leads
     const leadNames = Array.from(new Set(group.tasks.flatMap(t => t.assigneeIds.map(getAssigneeName)).filter(Boolean)));
@@ -1225,13 +1238,7 @@ function renderStrategicProjectsRadar(allTasks) {
       </td>
       <td><span class="strategic-domain-badge ${group.domainClass}">🏷️ ${escapeHtml(group.domainName)}</span></td>
       <td style="font-weight: 700;">${escapeHtml(leadsText)}</td>
-      <td>
-        <div style="display: flex; align-items: center; gap: 0.5rem; width: 120px;">
-          <div class="strategic-progress-bar" style="flex: 1;"><div class="fill" style="width: ${avgProgress}%"></div></div>
-          <span style="font-size: 0.75rem; font-weight: 800;">${avgProgress}%</span>
-        </div>
-      </td>
-      <td style="font-weight: 700;">${groupClTotal > 0 ? `${groupClDone}/${groupClTotal} (${groupClPct}%)` : '<span class="subtext">-</span>'}</td>
+      <td>${groupProgressHtml}</td>
       <td>${groupDeadlineBadge}</td>
       <td>${renderPriorityPill(highestPriority)}</td>
     `;
@@ -1247,6 +1254,19 @@ function renderStrategicProjectsRadar(allTasks) {
         const hasChecklist = checklistItems.length > 0;
         const isTaskClExpanded = state.expandedTaskChecklists.has(t.id);
         const assigneeNames = t.assigneeIds.map(getAssigneeName).join(", ") || "Unassigned";
+
+        const subtaskProgressHtml = hasChecklist
+          ? `<div class="project-checklist-progress-cell">
+              <div class="strategic-progress-bar" style="width: 70px;"><div class="fill" style="width: ${cl.pct}%"></div></div>
+              <button class="btn-checklist-toggle-badge ${isTaskClExpanded ? 'active' : ''}" type="button" title="Click to view checklist deliverables">
+                <span><strong>${cl.done}/${cl.total}</strong> (${cl.pct}%)</span>
+                <span>${isTaskClExpanded ? '▴' : '▾'}</span>
+              </button>
+            </div>`
+          : `<div class="project-checklist-progress-cell">
+              <div class="strategic-progress-bar" style="width: 70px;"><div class="fill" style="width: ${t.percentComplete}%"></div></div>
+              <span class="checklist-progress-text">${t.percentComplete}%</span>
+            </div>`;
 
         const subtaskTr = document.createElement("tr");
         subtaskTr.className = "project-subtask-row";
@@ -1265,20 +1285,7 @@ function renderStrategicProjectsRadar(allTasks) {
           </td>
           <td><span class="subtext" style="font-size: 0.74rem; font-weight: 600;">Sub-task</span></td>
           <td>${escapeHtml(assigneeNames)}</td>
-          <td>
-            <div style="display: flex; align-items: center; gap: 0.5rem; width: 120px;">
-              <div class="strategic-progress-bar" style="flex: 1;"><div class="fill" style="width: ${t.percentComplete}%"></div></div>
-              <span style="font-size: 0.75rem; font-weight: 700;">${t.percentComplete}%</span>
-            </div>
-          </td>
-          <td>
-            ${hasChecklist ? `
-              <button class="btn-checklist-toggle-badge ${isTaskClExpanded ? 'active' : ''}" type="button">
-                <span>${cl.done}/${cl.total} (${cl.pct}%)</span>
-                <span>${isTaskClExpanded ? '▴' : '▾'}</span>
-              </button>
-            ` : '<span class="subtext">-</span>'}
-          </td>
+          <td>${subtaskProgressHtml}</td>
           <td>${formatDueDateBadge(t)}</td>
           <td>${renderPriorityPill(t.priority)}</td>
         `;
@@ -1327,7 +1334,7 @@ function renderStrategicProjectsRadar(allTasks) {
           const clTr = document.createElement("tr");
           clTr.className = "project-checklist-row";
           clTr.innerHTML = `
-            <td colspan="7">
+            <td colspan="6">
               <div class="checklist-tree-card">
                 <div class="checklist-tree-header">
                   <span class="checklist-tree-title">
