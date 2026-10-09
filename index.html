@@ -686,7 +686,8 @@
               <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
                 <button type="button" class="btn btn-sm btn-primary" id="btnSaveTextOverrides">Save All Text</button>
                 <button type="button" class="btn btn-sm btn-outline" id="btnResetTextOverrides">Restore Defaults</button>
-                <button type="button" class="btn btn-sm btn-outline" id="btnExportTextJson" title="Copy text JSON for GitHub">📋 Copy JSON for GitHub</button>
+                <button type="button" class="btn btn-sm btn-outline" id="btnExportTextJson" title="Copy text JSON for GitHub">📋 Copy JSON</button>
+                <button type="button" class="btn btn-sm btn-outline" id="btnDownloadTextJson" title="Download data/text_overrides.json file for permanent repository commit">📥 Download JSON</button>
               </div>
 
               <!-- Cloud Persistence Accordion -->
@@ -762,6 +763,6 @@
   <!-- Firebase App & Firestore compat (for zero-server global persistence on GitHub Pages) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <script src="app.js?v=20261009_dedup"></script>
+  <script src="app.js?v=20261009_permanent_text"></script>
 </body>
 </html>

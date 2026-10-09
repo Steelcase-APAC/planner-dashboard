@@ -188,6 +188,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   initAdminEditorial();
   initFirestoreSync();
   
+  // Load permanent text overrides from repository file data/text_overrides.json
+  try {
+    const textResp = await fetch("data/text_overrides.json?v=" + Date.now(), { cache: "no-store" });
+    if (textResp.ok) {
+      const fileOverrides = await textResp.json();
+      if (fileOverrides && typeof fileOverrides === "object") {
+        state.textOverrides = { ...fileOverrides, ...state.textOverrides };
+        applyCustomTextOverrides();
+      }
+    }
+  } catch (e) {}
+
   if (window.location.hash === "#settings") {
     setTimeout(openSettingsDrawer, 200);
   }
@@ -1012,6 +1024,7 @@ function renderDashboardView() {
   renderStrategicProjectsRadar(tasks);
   renderDayToDaySection(tasks);
   setupOverviewTabs();
+  applyCustomTextOverrides();
 }
 
 /* ==========================================================================
@@ -3239,6 +3252,9 @@ function saveSettings() {
     }
   });
 
+  // Also save any admin text field changes if admin panel is open or fields are present
+  saveDrawerTextOverrides();
+
   savePreferences();
   populateFilterOptions();
   applyFiltersAndRender();
@@ -3353,10 +3369,15 @@ function renderAdminEditorialPanel() {
         const currentVal = (state.textOverrides && state.textOverrides[item.key] !== undefined)
           ? state.textOverrides[item.key]
           : (DEFAULT_TEXT_MAP[item.key] || "");
+        const isLongText = item.key.endsWith(".desc") || item.key.endsWith(".subtitle");
+        const inputHtml = isLongText
+          ? `<textarea class="admin-field-input input-text" data-key="${item.key}" rows="3" style="width: 100%; resize: vertical; font-family: inherit; font-size: 0.85rem; padding: 0.5rem; line-height: 1.4;">${escapeHtml(currentVal)}</textarea>`
+          : `<input type="text" class="admin-field-input input-text" data-key="${item.key}" value="${escapeHtml(currentVal)}">`;
+
         rowsHtml += `
-          <div class="admin-field-row">
-            <label class="admin-field-label">${item.label}</label>
-            <input type="text" class="admin-field-input" data-key="${item.key}" value="${escapeHtml(currentVal)}">
+          <div class="admin-field-row" style="margin-bottom: 0.85rem;">
+            <label class="admin-field-label" style="display: block; font-weight: 600; margin-bottom: 0.25rem;">${item.label}</label>
+            ${inputHtml}
           </div>
         `;
       });
@@ -3422,10 +3443,24 @@ function saveDrawerTextOverrides() {
   showAlert("Dashboard text preferences saved successfully!", "success");
 }
 
-function saveTextOverrides(newOverrides) {
+async function saveTextOverrides(newOverrides) {
   state.textOverrides = { ...newOverrides };
   localStorage.setItem(CONFIG.STORAGE_KEYS.CUSTOM_TEXT, JSON.stringify(state.textOverrides));
   applyCustomTextOverrides();
+
+  // Permanent Disk Persistence via backend /api/save-text
+  try {
+    const resp = await fetch("/api/save-text", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state.textOverrides)
+    });
+    if (resp.ok) {
+      console.log("Saved text overrides permanently to data/text_overrides.json");
+    }
+  } catch (err) {
+    // Expected when running on static GitHub Pages or server unreachable
+  }
 
   // Real-time Cloud Sync via Firebase Firestore if configured
   if (state.firestoreDb) {
@@ -3612,6 +3647,20 @@ function initAdminEditorial() {
   const exportDrawerBtn = document.getElementById("btnExportTextJson");
   if (exportDrawerBtn) {
     exportDrawerBtn.addEventListener("click", exportTextOverridesJson);
+  }
+
+  const downloadDrawerBtn = document.getElementById("btnDownloadTextJson");
+  if (downloadDrawerBtn) {
+    downloadDrawerBtn.addEventListener("click", () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state.textOverrides, null, 2));
+      const downloadAnchor = document.createElement("a");
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "text_overrides.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showAlert("Downloaded text_overrides.json. Replace data/text_overrides.json in repo to make permanent forever!", "success");
+    });
   }
 
   setupFirestoreConfigUI();

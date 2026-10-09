@@ -97,6 +97,51 @@ class PlannerDashboardHandler(http.server.SimpleHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
+    def do_POST(self):
+        parsed_path = self.path.split("?")[0]
+        
+        # API: Save Text Overrides to disk permanently
+        if parsed_path in ("/api/save-text", "/api/save-text-overrides"):
+            try:
+                content_length = int(self.headers.get("Content-Length", 0))
+                body = self.rfile.read(content_length).decode("utf-8")
+                data = json.loads(body)
+                
+                if isinstance(data, dict):
+                    base_dir = os.path.dirname(os.path.abspath(__file__))
+                    target_file = os.path.join(base_dir, "data", "text_overrides.json")
+                    os.makedirs(os.path.dirname(target_file), exist_ok=True)
+                    
+                    with open(target_file, "w", encoding="utf-8") as f:
+                        json.dump(data, f, indent=2, ensure_ascii=False)
+                    
+                    resp = json.dumps({
+                        "success": True, 
+                        "savedKeys": len(data), 
+                        "file": "data/text_overrides.json",
+                        "message": "Text overrides saved permanently to disk."
+                    }).encode("utf-8")
+                    self.send_response(200)
+                    self.send_header("Content-Type", "application/json; charset=utf-8")
+                    self.send_header("Content-Length", str(len(resp)))
+                    self.end_headers()
+                    self.wfile.write(resp)
+                    print(f"💾 [Permanent Save] Saved {len(data)} text overrides to data/text_overrides.json")
+                    return
+                else:
+                    raise ValueError("Payload must be a JSON object")
+            except Exception as e:
+                err = json.dumps({"success": False, "error": str(e)}).encode("utf-8")
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Content-Length", str(len(err)))
+                self.end_headers()
+                self.wfile.write(err)
+                return
+
+        self.send_response(404)
+        self.end_headers()
+
     def do_GET(self):
         parsed_path = self.path.split("?")[0]
         

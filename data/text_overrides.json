@@ -1,0 +1,23 @@
+{
+  "scorecard.total": "Total Tasks",
+  "scorecard.in_progress": "In Progress",
+  "scorecard.completed": "Completed",
+  "scorecard.overdue": "Overdue Tasks",
+  "scorecard.urgent": "Urgent / Important",
+  "charts.velocity.title": "Delivery Velocity & Throughput",
+  "charts.velocity.subtitle": "Tasks Created (Inflow) vs Completed (Outflow) Trend",
+  "charts.runway.title": "Upcoming Deliverables Runway",
+  "charts.runway.subtitle": "Milestone Deadlines Grouped across Next 5 Weeks",
+  "tabs.strategic.eyebrow": "Executive Monitor",
+  "tabs.strategic.title": "High-Level Projects & Strategic Initiatives",
+  "tabs.strategic.desc": "Dedicated progress tracker for multi-stream projects across SEO, AI, Leadgen, CX, and Operations.",
+  "tabs.daytoday.eyebrow": "Operational Execution",
+  "tabs.daytoday.title": "Day-to-Day Tasks & Team Grind",
+  "tabs.daytoday.desc": "Daily operational workflows, content production, ad updates, and sprint deliverables.",
+  "analytics.domain.title": "Domain & Strategic Stream Allocation",
+  "analytics.domain.subtitle": "Effort allocation across SEO, AI, Leadgen, CX, Comms",
+  "analytics.priority.title": "Priority & Health Matrix",
+  "analytics.priority.subtitle": "Risk Breakdown",
+  "analytics.checklist.title": "Checklist Deliverables Health",
+  "analytics.checklist.subtitle": "Task deliverable completion meter"
+}
