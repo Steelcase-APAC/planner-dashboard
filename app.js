@@ -103,7 +103,8 @@ const BUCKET_COLORS = [
 const DEFAULT_ASSIGNEES = {
   "b0dde2c9-92a4-4d86-a4fd-2a130944956f": "Aisah",
   "d8b70168-3e9f-451c-898e-9a1da643aafe": "Rebecca",
-  "8275aaa4-2f87-4474-8d57-d6e65233cfe8": "Adam"
+  "129b8133-2f40-46f4-8391-49fec10f3174": "Adam",
+  "8275aaa4-2f87-4474-8d57-d6e65233cfe8": "Jacky Low"
 };
 
 // Microsoft Planner Label / Category Mappings matching plan configuration
@@ -119,17 +120,29 @@ const DEFAULT_LABELS = {
   "category9": { name: "Salesforce", class: "cat-salesforce" },
   "category10": { name: "Hubspot", class: "cat-hubspot" },
   "category11": { name: "ADS- Planning", class: "cat-ads-planning" },
-  "category12": { name: "ADS- Review", class: "cat-ads-review" },
+  "category12": { name: "ADS- Setup", class: "cat-ads-planning" },
   "category13": { name: "Report", class: "cat-report" },
   "category14": { name: "Others", class: "cat-others" },
-  "category15": { name: "Webinar", class: "cat-webinar" },
-  "category16": { name: "Google", class: "cat-google" },
+  "category15": { name: "Others", class: "cat-others" },
+  "category16": { name: "CX", class: "cat-cx" },
   "category17": { name: "Facebook", class: "cat-facebook" },
-  "category18": { name: "CORE-Project", class: "cat-core-project" },
+  "category18": { name: "Event", class: "cat-default" },
   "category19": { name: "LinkedIn", class: "cat-linkedin" },
-  "category25": { name: "Open AI", class: "cat-open-ai" },
-  "CORE-Project": { name: "CORE-Project", class: "cat-core-project" }
+  "category20": { name: "Facebook", class: "cat-facebook" },
+  "category21": { name: "Leadgen", class: "cat-leadgen" },
+  "category22": { name: "Ai", class: "cat-open-ai" },
+  "category23": { name: "* Project", class: "cat-core-project" },
+  "category24": { name: "Webinar", class: "cat-others" },
+  "category25": { name: "Open AI", class: "cat-open-ai" }
 };
+
+// Mirror names into DEFAULT_LABELS so lookup by either category ID or name succeeds
+Object.keys(DEFAULT_LABELS).forEach(cat => {
+  const item = DEFAULT_LABELS[cat];
+  if (!DEFAULT_LABELS[item.name]) {
+    DEFAULT_LABELS[item.name] = item;
+  }
+});
 
 // Application State
 const state = {
@@ -263,11 +276,6 @@ function loadPreferences() {
     try {
       state.labelMap = { ...DEFAULT_LABELS, ...JSON.parse(savedLabels) };
     } catch (e) {}
-  }
-  // Ensure CORE-Project is explicitly present
-  if (!state.labelMap["category18"] || state.labelMap["category18"].name !== "CORE-Project") {
-    state.labelMap["category18"] = { name: "CORE-Project", class: "cat-core-project" };
-    state.labelMap["CORE-Project"] = { name: "CORE-Project", class: "cat-core-project" };
   }
 
   const savedLastSync = localStorage.getItem(CONFIG.STORAGE_KEYS.LAST_SYNC);
@@ -426,36 +434,59 @@ function normalizeRawTaskObjects(rawItems) {
       }
     }
 
-    const labelTags = [];
+    // Extract and deduplicate labels cleanly
     const rawLabels = item.Labels || item.labels;
+    const catKeys = [];
     if (Array.isArray(rawLabels)) {
-      labelTags.push(...rawLabels);
+      catKeys.push(...rawLabels);
     } else if (typeof rawLabels === "string" && rawLabels.startsWith("{")) {
       try {
         const parsed = JSON.parse(rawLabels);
         Object.keys(parsed).forEach(cat => {
-          if (parsed[cat]) labelTags.push(cat);
+          if (parsed[cat]) catKeys.push(cat);
         });
       } catch (e) {}
     } else if (typeof rawLabels === "object" && rawLabels !== null) {
       Object.keys(rawLabels).forEach(cat => {
-        if (rawLabels[cat]) labelTags.push(cat);
+        if (rawLabels[cat]) catKeys.push(cat);
       });
     }
 
     // Incorporate enriched LabelNames from latest Excel runs
     const rawLabelNamesStr = item.LabelNames || (item.rawRow && item.rawRow.LabelNames);
-    if (typeof rawLabelNamesStr === "string" && rawLabelNamesStr.trim()) {
-      const parsedNames = rawLabelNamesStr.split(",").map(s => s.trim()).filter(Boolean);
-      parsedNames.forEach(name => {
-        if (!state.labelMap[name]) {
-          state.labelMap[name] = { name: name, class: getCategoryClass(name) };
-        }
-        if (!labelTags.includes(name)) {
-          labelTags.push(name);
+    const parsedNames = (typeof rawLabelNamesStr === "string" && rawLabelNamesStr.trim() && rawLabelNamesStr !== "null")
+      ? rawLabelNamesStr.split(",").map(s => s.trim()).filter(Boolean)
+      : [];
+
+    // Teach state.labelMap if counts align
+    if (catKeys.length > 0 && parsedNames.length === catKeys.length) {
+      catKeys.forEach((cat, idx) => {
+        const name = parsedNames[idx];
+        if (name) {
+          const cls = getCategoryClass(name);
+          state.labelMap[cat] = { name: name, class: cls };
+          state.labelMap[name] = { name: name, class: cls };
         }
       });
     }
+
+    // Resolve labels to unique canonical display names (prefer human names over category keys)
+    const uniqueLabelsSet = new Set();
+    if (parsedNames.length > 0) {
+      parsedNames.forEach(name => uniqueLabelsSet.add(name));
+    } else {
+      catKeys.forEach(cat => {
+        const name = state.labelMap[cat] ? state.labelMap[cat].name : cat;
+        if (name) uniqueLabelsSet.add(name);
+      });
+    }
+
+    const labelTags = Array.from(uniqueLabelsSet);
+    labelTags.forEach(name => {
+      if (!state.labelMap[name]) {
+        state.labelMap[name] = { name: name, class: getCategoryClass(name) };
+      }
+    });
 
     tasks.push({
       id: taskId,
@@ -660,15 +691,47 @@ function parsePlannerCSV(text) {
     }
 
     // Extract tags/labels
-    const labelTags = [];
+    const rawLabelNamesStr = getCol("LabelNames");
+    const parsedNames = (typeof rawLabelNamesStr === "string" && rawLabelNamesStr.trim() && rawLabelNamesStr !== "null")
+      ? rawLabelNamesStr.split(",").map(s => s.trim()).filter(Boolean)
+      : [];
+
+    const catKeys = [];
     if (rawLabels && rawLabels.startsWith("{")) {
       try {
         const parsed = JSON.parse(rawLabels);
         Object.keys(parsed).forEach(cat => {
-          if (parsed[cat]) labelTags.push(cat);
+          if (parsed[cat]) catKeys.push(cat);
         });
       } catch (e) {}
     }
+
+    if (catKeys.length > 0 && parsedNames.length === catKeys.length) {
+      catKeys.forEach((cat, idx) => {
+        const name = parsedNames[idx];
+        if (name) {
+          const cls = getCategoryClass(name);
+          state.labelMap[cat] = { name: name, class: cls };
+          state.labelMap[name] = { name: name, class: cls };
+        }
+      });
+    }
+
+    const uniqueLabelsSet = new Set();
+    if (parsedNames.length > 0) {
+      parsedNames.forEach(name => uniqueLabelsSet.add(name));
+    } else {
+      catKeys.forEach(cat => {
+        const name = state.labelMap[cat] ? state.labelMap[cat].name : cat;
+        if (name) uniqueLabelsSet.add(name);
+      });
+    }
+    const labelTags = Array.from(uniqueLabelsSet);
+    labelTags.forEach(name => {
+      if (!state.labelMap[name]) {
+        state.labelMap[name] = { name: name, class: getCategoryClass(name) };
+      }
+    });
 
     tasks.push({
       id: taskId || `task-${i}`,
@@ -796,11 +859,9 @@ function applyFiltersAndRender() {
           return false;
         });
 
-        // Also allow matching if the newly created label name is mentioned in title or description
-        const inText = task.title.toLowerCase().includes(targetName) || 
-                       (task.description && task.description.toLowerCase().includes(targetName));
+        const inLabelNames = task.labelNames && task.labelNames.split(",").map(s => s.trim().toLowerCase()).includes(targetName);
 
-        if (!hasMatch && !inText) return false;
+        if (!hasMatch && !inLabelNames) return false;
       }
     }
 
@@ -2092,9 +2153,17 @@ function getTaskCategories(task) {
   if (!task.labels || task.labels.length === 0) {
     return [{ name: "General", class: "cat-default" }];
   }
-  return task.labels.map(catKey => {
-    return state.labelMap[catKey] || { name: catKey, class: "cat-default" };
+  const seen = new Set();
+  const list = [];
+  task.labels.forEach(catKey => {
+    const lObj = state.labelMap[catKey] || { name: catKey, class: getCategoryClass(catKey) };
+    const name = lObj.name || catKey;
+    if (!seen.has(name)) {
+      seen.add(name);
+      list.push({ name: name, class: lObj.class || getCategoryClass(name) });
+    }
   });
+  return list.length > 0 ? list : [{ name: "General", class: "cat-default" }];
 }
 
 function getTaskTerritory(task) {
@@ -3556,59 +3625,77 @@ function populateFilterOptions() {
   const labelSelect = document.getElementById("filterLabel");
   const assigneeSelect = document.getElementById("filterAssignee");
 
-  // Populate individual Planner Labels
+  // 1. Populate individual Planner Labels cleanly with zero duplicates
   if (labelSelect) {
     const labelCounts = {};
+    let unlabeledCount = 0;
+
     state.tasks.forEach(t => {
       if (t.labels && t.labels.length > 0) {
-        t.labels.forEach(catKey => {
-          labelCounts[catKey] = (labelCounts[catKey] || 0) + 1;
+        const uniqueTaskLabels = Array.from(new Set(t.labels));
+        uniqueTaskLabels.forEach(lbl => {
+          const name = state.labelMap[lbl] ? state.labelMap[lbl].name : lbl;
+          labelCounts[name] = (labelCounts[name] || 0) + 1;
         });
       } else {
-        labelCounts["unlabeled"] = (labelCounts["unlabeled"] || 0) + 1;
+        unlabeledCount++;
       }
     });
 
     const activeFilter = state.filters.label || "ALL";
     labelSelect.innerHTML = `<option value="ALL">All Labels</option>`;
 
-    // Merge keys so all known Planner labels (including newly added like CORE-Project) are present
-    const allCatKeys = Array.from(new Set([
-      ...Object.keys(state.labelMap).filter(k => k.startsWith("category")),
-      ...Object.keys(labelCounts)
-    ]));
+    // If there are unlabeled tasks, provide "No Label (count)" option
+    if (unlabeledCount > 0) {
+      const opt = document.createElement("option");
+      opt.value = "unlabeled";
+      opt.textContent = `No Label (${unlabeledCount})`;
+      if (activeFilter === "unlabeled") opt.selected = true;
+      labelSelect.appendChild(opt);
+    }
 
-    // Sort: labels with tasks first (by count descending), then labels with 0 tasks alphabetically
-    allCatKeys.sort((a, b) => {
-      const countA = labelCounts[a] || 0;
-      const countB = labelCounts[b] || 0;
-      if (countA !== countB) return countB - countA;
-      const nameA = state.labelMap[a] ? state.labelMap[a].name : a;
-      const nameB = state.labelMap[b] ? state.labelMap[b].name : b;
-      return nameA.localeCompare(nameB);
+    // Sort active labels by task count descending, then alphabetically
+    const sortedNames = Object.keys(labelCounts).sort((a, b) => {
+      const diff = labelCounts[b] - labelCounts[a];
+      if (diff !== 0) return diff;
+      return a.localeCompare(b);
     });
 
-    allCatKeys.forEach(catKey => {
+    sortedNames.forEach(name => {
       const opt = document.createElement("option");
-      opt.value = catKey;
-      const labelObj = state.labelMap[catKey];
-      const name = labelObj ? labelObj.name : (catKey === "unlabeled" ? "No Label" : catKey);
-      const count = labelCounts[catKey] || 0;
-      opt.textContent = `${name} (${count})`;
-      if (activeFilter === catKey) opt.selected = true;
+      opt.value = name;
+      opt.textContent = `${name} (${labelCounts[name]})`;
+      if (activeFilter === name) opt.selected = true;
       labelSelect.appendChild(opt);
     });
   }
 
-  // Populate Assignees
-  const uniqueAssignees = Array.from(new Set(state.tasks.flatMap(t => t.assigneeIds)));
+  // 2. Populate Assignees cleanly with counts, sorted by task count descending
   if (assigneeSelect) {
+    const assigneeCounts = {};
+    state.tasks.forEach(t => {
+      if (t.assigneeIds && t.assigneeIds.length > 0) {
+        const uniqueIds = Array.from(new Set(t.assigneeIds));
+        uniqueIds.forEach(aid => {
+          assigneeCounts[aid] = (assigneeCounts[aid] || 0) + 1;
+        });
+      }
+    });
+
     const activeAssignee = state.filters.assignee || "ALL";
-    assigneeSelect.innerHTML = `<option value="ALL">All Team Members (${uniqueAssignees.length})</option>`;
-    uniqueAssignees.forEach(aid => {
+    const sortedAssigneeIds = Object.keys(assigneeCounts).sort((a, b) => {
+      const diff = assigneeCounts[b] - assigneeCounts[a];
+      if (diff !== 0) return diff;
+      return getAssigneeName(a).localeCompare(getAssigneeName(b));
+    });
+
+    assigneeSelect.innerHTML = `<option value="ALL">All Team Members (${sortedAssigneeIds.length})</option>`;
+    sortedAssigneeIds.forEach(aid => {
       const opt = document.createElement("option");
       opt.value = aid;
-      opt.textContent = getAssigneeName(aid);
+      const name = getAssigneeName(aid);
+      const count = assigneeCounts[aid] || 0;
+      opt.textContent = `${name} (${count})`;
       if (activeAssignee === aid) opt.selected = true;
       assigneeSelect.appendChild(opt);
     });
