@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlannerHub — Executive Overview & Project Dashboard</title>
+  <meta name="description" content="Executive Monday.com and Asana-style project dashboard for Microsoft Planner. Real-time sync, interactive Gantt timeline, workload capacity, and portfolio analytics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-bw">
+  <div id="app" class="app-container">
+    
+    <!-- Top Navigation Header -->
+    <header class="top-nav">
+      <div class="top-nav-inner">
+        <div class="nav-left">
+          <div class="brand-logo">
+            <div class="logo-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="4" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+            </div>
+            <div class="brand-text">
+              <span class="brand-name">Planner<span class="brand-accent">Hub</span></span>
+              <span class="brand-badge">Executive Overview</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-center">
+          <!-- Navigation View Tabs -->
+          <nav class="view-tabs" role="tablist">
+            <button class="tab-btn active" data-view="dashboard" id="tabDashboard">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+              <span>Overview</span>
+            </button>
+            <button class="tab-btn" data-view="table" id="tabTable">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></svg>
+              <span>Table</span>
+            </button>
+            <button class="tab-btn" data-view="gantt" id="tabGantt">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16"/><path d="M4 12h10"/><path d="M4 18h14"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="14" cy="18" r="2"/></svg>
+              <span>Timeline</span>
+            </button>
+            <button class="tab-btn" data-view="calendar" id="tabCalendar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Calendar</span>
+            </button>
+            <button class="tab-btn" data-view="kanban" id="tabKanban">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="4" height="16" rx="1"/><rect x="10" y="4" width="4" height="10" rx="1"/><rect x="16" y="4" width="4" height="13" rx="1"/></svg>
+              <span>Kanban</span>
+            </button>
+            <button class="tab-btn" data-view="workload" id="tabWorkload">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <span>Workload</span>
+            </button>
+          </nav>
+        </div>
+
+        <div class="nav-right">
+          <!-- Live Sync Status & Control -->
+          <div class="sync-status-box" id="syncStatusBox" title="Connected to pCloud live sync (updates every 2 hours)">
+            <span class="sync-pulse"></span>
+            <div class="sync-info">
+              <span class="sync-label" id="syncStatusLabel">Synced Live</span>
+              <span class="sync-time" id="syncTimeText">Just now</span>
+            </div>
+            <button class="btn-icon sync-btn" id="btnSyncNow" title="Force Refresh from pCloud">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            </button>
+          </div>
+
+          <!-- Action Buttons -->
+          <button class="btn-icon theme-toggle-btn" id="btnThemeToggle" title="Toggle Light/Dark Theme">
+            <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+
+          <button class="btn-icon settings-btn" id="btnOpenSettings" title="Settings & Bucket/Assignee Names">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </button>
+
+          <button class="btn btn-secondary export-btn" id="btnExportCSV" title="Export filtered tasks to CSV">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Export</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Global Control & Filter Toolbar -->
+    <section class="toolbar">
+      <div class="toolbar-inner">
+        <div class="search-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Search tasks, descriptions, links, assignees..." autocomplete="off">
+          <button id="clearSearchBtn" class="clear-search-btn" style="display: none;">&times;</button>
+        </div>
+
+        <div class="filters-row">
+          <!-- Label / Category Filter -->
+          <div class="filter-dropdown">
+            <label>Label / Category:</label>
+            <select id="filterLabel">
+              <option value="ALL">All Labels</option>
+            </select>
+          </div>
+
+          <!-- Priority Filter -->
+          <div class="filter-dropdown">
+            <label>Priority:</label>
+            <select id="filterPriority">
+              <option value="ALL">All Priorities</option>
+              <option value="Urgent">🔴 Urgent</option>
+              <option value="Important">🟠 Important</option>
+              <option value="Medium">🔵 Medium</option>
+              <option value="Low">⚪ Low</option>
+            </select>
+          </div>
+
+          <!-- Status Filter -->
+          <div class="filter-dropdown">
+            <label>Status:</label>
+            <select id="filterStatus">
+              <option value="ALL">All Statuses</option>
+              <option value="NOT_STARTED">Not Started (0%)</option>
+              <option value="IN_PROGRESS">In Progress (50%)</option>
+              <option value="COMPLETED">Completed (100%)</option>
+              <option value="OVERDUE">⚠️ Overdue Only</option>
+            </select>
+          </div>
+
+          <!-- Assignee Filter -->
+          <div class="filter-dropdown">
+            <label>Assignee:</label>
+            <select id="filterAssignee">
+              <option value="ALL">All Team Members</option>
+            </select>
+          </div>
+
+          <!-- Reset Button -->
+          <button id="btnResetFilters" class="btn-ghost" title="Reset all filters">Reset</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Notification / Alert Banner -->
+    <div id="alertBanner" class="alert-banner" style="display: none;"></div>
+
+    <!-- Admin Live Inline Edit Floating Toolbar -->
+    <div id="adminInlineBar" class="admin-inline-bar" style="display: none;">
+      <div class="admin-inline-inner">
+        <div class="admin-inline-left">
+          <span class="admin-inline-badge">✍️ ADMIN EDIT MODE</span>
+          <span class="admin-inline-hint">Click on any highlighted title, subtitle, or eyebrow to type changes directly.</span>
+        </div>
+        <div class="admin-inline-actions">
+          <button class="btn btn-sm btn-primary" id="btnSaveInlineEdit">💾 Save Changes</button>
+          <button class="btn btn-sm btn-outline" id="btnExitInlineEdit">Exit Edit Mode</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- VIEW 1: EXECUTIVE OVERVIEW DASHBOARD -->
+      <section id="viewDashboard" class="view-panel active">
+
+        <!-- SECTION 1: SCORECARD METRICS (TOP PRIORITY) -->
+        <div class="metrics-grid">
+          <div class="metric-card card-total">
+            <div class="metric-header">
+              <span class="metric-title" data-editable-key="scorecard.total">Total Tasks</span>
+              <div class="metric-icon total-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+            </div>
+            <div class="metric-value" id="kpiTotalTasks">0</div>
+            <div class="metric-footer">
+              <span class="metric-sub" id="kpiBucketCount">Across all labels</span>
+            </div>
+          </div>
+
+          <div class="metric-card card-progress">
+            <div class="metric-header">
+              <span class="metric-title" data-editable-key="scorecard.in_progress">In Progress</span>
+              <div class="metric-icon progress-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+            </div>
+            <div class="metric-value" id="kpiInProgress">0</div>
+            <div class="metric-footer">
+              <div class="progress-bar-mini">
+                <div class="fill" id="kpiInProgressPctBar" style="width: 0%"></div>
+              </div>
+              <span class="metric-sub" id="kpiInProgressPct">0% of total</span>
+            </div>
+          </div>
+
+          <div class="metric-card card-completed">
+            <div class="metric-header">
+              <span class="metric-title" data-editable-key="scorecard.completed">Completed</span>
+              <div class="metric-icon completed-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+            </div>
+            <div class="metric-value" id="kpiCompleted">0</div>
+            <div class="metric-footer">
+              <span class="metric-sub text-success" id="kpiCompletedPct">0% done</span>
+            </div>
+          </div>
+
+          <div class="metric-card card-overdue">
+            <div class="metric-header">
+              <span class="metric-title" data-editable-key="scorecard.overdue">Overdue Tasks</span>
+              <div class="metric-icon overdue-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+            </div>
+            <div class="metric-value" id="kpiOverdue">0</div>
+            <div class="metric-footer">
+              <span class="metric-sub text-danger" id="kpiOverdueText">Requires attention</span>
+            </div>
+          </div>
+
+          <div class="metric-card card-urgent">
+            <div class="metric-header">
+              <span class="metric-title" data-editable-key="scorecard.urgent">Urgent / Important</span>
+              <div class="metric-icon urgent-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              </div>
+            </div>
+            <div class="metric-value" id="kpiUrgent">0</div>
+            <div class="metric-footer">
+              <span class="metric-sub" id="kpiUrgentText">High priority items</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 2: CHARTS & GRAPHS -->
+        <!-- Primary Delivery Velocity & Upcoming Runway Graphs -->
+        <div class="time-series-analytics-row">
+          <!-- Delivery Velocity & Throughput (Inflow vs. Outflow) -->
+          <div class="analytics-card time-series-card">
+            <div class="analytics-header time-series-header">
+              <div>
+                <h3 data-editable-key="charts.velocity.title">Delivery Velocity & Throughput</h3>
+                <span class="subtext" data-editable-key="charts.velocity.subtitle">Tasks Created (Inflow) vs Completed (Outflow) Trend</span>
+              </div>
+              <div class="velocity-legend">
+                <span class="legend-item"><span class="legend-dot in-dot"></span> Inflow (Created)</span>
+                <span class="legend-item"><span class="legend-dot out-dot"></span> Outflow (Completed)</span>
+              </div>
+            </div>
+            <div class="velocity-chart-wrapper" id="velocityChartWrapper">
+              <!-- Rendered via SVG in JS -->
+            </div>
+          </div>
+
+          <!-- Upcoming Deliverables Runway -->
+          <div class="analytics-card time-series-card">
+            <div class="analytics-header time-series-header">
+              <div>
+                <h3 data-editable-key="charts.runway.title">Upcoming Deliverables Runway</h3>
+                <span class="subtext" data-editable-key="charts.runway.subtitle">Milestone Deadlines Grouped across Next 5 Weeks</span>
+              </div>
+              <span class="runway-stat-badge" id="runwayStatBadge">Loading...</span>
+            </div>
+            <div class="runway-bars-container" id="runwayBarsContainer">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: DUAL-STREAM WORKSPACE (TWO-TAB SECTION) -->
+        <section class="dual-stream-section" id="dualStreamSection">
+          
+          <!-- TWO TABS (SIDE-BY-SIDE CARDS) -->
+          <div class="overview-tabs-header">
+            <!-- Tab 1: High-Level Projects -->
+            <button class="overview-tab-card active" id="tabBtnStrategic" type="button">
+              <div class="tab-card-header">
+                <span class="strategic-live-dot"></span>
+                <span class="tab-card-eyebrow" data-editable-key="tabs.strategic.eyebrow">Executive Monitor</span>
+                <span class="badge-accent" id="strategicProjectCountBadge">15 Strategic Projects</span>
+              </div>
+              <h2 class="tab-card-title" data-editable-key="tabs.strategic.title">High-Level Projects & Strategic Initiatives</h2>
+              <p class="tab-card-desc" data-editable-key="tabs.strategic.desc">Dedicated progress tracker for multi-stream projects across SEO, AI, Leadgen, CX, and Operations.</p>
+            </button>
+
+            <!-- Tab 2: Day-to-Day Tasks -->
+            <button class="overview-tab-card" id="tabBtnDayToDay" type="button">
+              <div class="tab-card-header">
+                <span class="tab-live-dot-green"></span>
+                <span class="tab-card-eyebrow" data-editable-key="tabs.daytoday.eyebrow">Operational Execution</span>
+                <span class="badge-accent badge-daytoday" id="dayToDayCountBadge">56 Day-to-Day Tasks</span>
+              </div>
+              <h2 class="tab-card-title" data-editable-key="tabs.daytoday.title">Day-to-Day Tasks & Team Grind</h2>
+              <p class="tab-card-desc" data-editable-key="tabs.daytoday.desc">Daily operational workflows, content production, ad updates, and sprint deliverables.</p>
+            </button>
+          </div>
+
+          <!-- TAB CONTENT 1: HIGH-LEVEL PROJECTS TABLE VIEW -->
+          <div class="overview-tab-content active" id="tabContentStrategic">
+            <div class="strategic-filter-bar">
+              <div class="strategic-domain-filter-pills" id="strategicDomainFilterPills">
+                <!-- Domain pills: AI Initiative, Ads Planning, CX & UX, Leadgen, Reporting & Ops, SEO -->
+              </div>
+              <div class="strategic-tree-controls">
+                <button class="btn btn-sm btn-outline" id="btnToggleAllProjects" type="button" title="Expand or collapse all project groups">
+                  <span id="btnToggleAllProjectsText">Expand All Projects</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="strategic-projects-table-container" id="strategicProjectsTableWrap">
+              <table class="strategic-projects-table">
+                <thead>
+                  <tr>
+                    <th>Project Initiative</th>
+                    <th>Strategic Domain</th>
+                    <th>Project Lead</th>
+                    <th>Progress</th>
+                    <th>Deliverables Checklist</th>
+                    <th>Deadline Status</th>
+                    <th>Priority</th>
+                  </tr>
+                </thead>
+                <tbody id="strategicProjectsTableBody">
+                  <!-- Rendered via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- TAB CONTENT 2: DAY-TO-DAY TASKS TABLE VIEW -->
+          <div class="overview-tab-content" id="tabContentDayToDay" style="display: none;">
+            <div class="daytoday-toolbar">
+              <div class="daytoday-filter-pills" id="dayTodayFilterPills">
+                <!-- Dynamically populated pills -->
+              </div>
+              <div class="daytoday-search-wrap">
+                <input type="text" id="dayTodaySearchInput" class="form-input form-input-sm" placeholder="Search day-to-day tasks..." />
+              </div>
+            </div>
+
+            <div class="strategic-projects-table-container">
+              <table class="strategic-projects-table data-table" id="dayTodayTable">
+                <thead>
+                  <tr>
+                    <th>Task Name</th>
+                    <th>Bucket / Stage</th>
+                    <th>Category</th>
+                    <th>Priority</th>
+                    <th>Assignee</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="dayTodayTableBody">
+                  <!-- Rendered via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- SECTION 4: STRATEGIC ANALYTICS & DELIVERABLES HEALTH (UNDERNEATH TABS) -->
+        <div class="dashboard-analytics-row">
+          <!-- Strategic Domain Breakdown Chart -->
+          <div class="analytics-card">
+            <div class="analytics-header">
+              <h3 data-editable-key="analytics.domain.title">Domain & Strategic Stream Allocation</h3>
+              <span class="subtext" data-editable-key="analytics.domain.subtitle">Effort allocation across SEO, AI, Leadgen, CX, Comms</span>
+            </div>
+            <div class="bucket-bars-container" id="bucketBarsContainer">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Right Column: Priority & Health Matrix + Checklist Deliverables Health (Stacked Up & Down) -->
+          <div class="analytics-stacked-column">
+            <!-- Priority & Status Donut / Breakdown -->
+            <div class="analytics-card">
+              <div class="analytics-header">
+                <h3 data-editable-key="analytics.priority.title">Priority & Health Matrix</h3>
+                <span class="subtext" data-editable-key="analytics.priority.subtitle">Risk Breakdown</span>
+              </div>
+              <div class="priority-health-grid">
+                <div class="priority-breakdown-list" id="priorityBreakdownList">
+                  <!-- Rendered via JS -->
+                </div>
+                <div class="health-summary-box">
+                  <div class="health-gauge" id="healthGauge">
+                    <span class="health-percent" id="healthScore">94%</span>
+                    <span class="health-title">On-Track</span>
+                  </div>
+                  <div class="health-details" id="healthDetailsText">
+                    Calculating project delivery health...
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Deliverables & Checklist Health Meter -->
+            <div class="analytics-card">
+              <div class="analytics-header">
+                <h3 data-editable-key="analytics.checklist.title">Checklist Deliverables Health</h3>
+                <span class="subtext" data-editable-key="analytics.checklist.subtitle">Task deliverable completion meter</span>
+              </div>
+              <div class="deliverables-health-container" id="deliverablesHealthContainer">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 2: EXECUTIVE TABLE VIEW (BOSS & MONDAY.COM STYLE) -->
+      <section id="viewTable" class="view-panel">
+        <div class="view-header-bar">
+          <div class="header-left">
+            <h2>Executive Plan Table</h2>
+            <p class="subtext">Custom formatted with Category (Planner Labels), Territory, Owner, and Key Milestone Dates</p>
+          </div>
+          <div class="header-actions">
+            <div class="filter-dropdown">
+              <label>View Layout:</label>
+              <select id="tableGroupBy">
+                <option value="none" selected>Individual Items (Flat Table)</option>
+                <option value="category">Group by Label / Category</option>
+                <option value="owner">Group by Owner</option>
+                <option value="status">Group by Status</option>
+              </select>
+            </div>
+            <button class="btn btn-sm btn-outline" id="btnExpandAllBuckets">Expand All</button>
+            <button class="btn btn-sm btn-outline" id="btnCollapseAllBuckets">Collapse All</button>
+          </div>
+        </div>
+
+        <div class="monday-table-container" id="mondayTableContainer">
+          <!-- Rendered via JS -->
+        </div>
+      </section>
+
+      <!-- VIEW 3: ASANA STYLE GANTT / TIMELINE VIEW -->
+      <section id="viewGantt" class="view-panel">
+        <div class="view-header-bar">
+          <div class="header-left">
+            <h2>Visual Project Timeline (Gantt)</h2>
+            <p class="subtext">Interactive timeline scheduled by due dates and active task intervals</p>
+          </div>
+          <div class="timeline-controls">
+            <div class="segmented-control">
+              <button class="btn-seg active" data-zoom="days" id="zoomDays">Days</button>
+              <button class="btn-seg" data-zoom="weeks" id="zoomWeeks">Weeks</button>
+              <button class="btn-seg" data-zoom="months" id="zoomMonths">Months</button>
+            </div>
+            <button class="btn btn-sm btn-outline" id="btnJumpToToday">Today</button>
+          </div>
+        </div>
+
+        <div class="gantt-wrapper" id="ganttWrapper">
+          <div class="gantt-sidebar">
+            <div class="gantt-sidebar-header">Task Name</div>
+            <div class="gantt-sidebar-list" id="ganttSidebarList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+          <div class="gantt-chart-area" id="ganttChartArea">
+            <div class="gantt-header-row" id="ganttHeaderRow">
+              <!-- Rendered via JS -->
+            </div>
+            <div class="gantt-body" id="ganttBody">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: EDITORIAL & MILESTONE CALENDAR VIEW -->
+      <section id="viewCalendar" class="view-panel">
+        <div class="view-header-bar">
+          <div class="header-left">
+            <h2>Editorial & Milestone Calendar</h2>
+            <p class="subtext">Deliverables and target milestones organized by due dates across the active schedule</p>
+          </div>
+          <div class="calendar-controls">
+            <div class="calendar-nav-group">
+              <button class="btn-icon" id="btnCalPrev" title="Previous Month">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <span class="calendar-month-title" id="calMonthTitle">October 2026</span>
+              <button class="btn-icon" id="btnCalNext" title="Next Month">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+            <button class="btn btn-sm btn-outline" id="btnCalToday">Today</button>
+          </div>
+        </div>
+
+        <div class="calendar-wrapper" id="calendarWrapper">
+          <div class="calendar-days-header">
+            <div class="cal-day-name">Mon</div>
+            <div class="cal-day-name">Tue</div>
+            <div class="cal-day-name">Wed</div>
+            <div class="cal-day-name">Thu</div>
+            <div class="cal-day-name">Fri</div>
+            <div class="cal-day-name is-weekend">Sat</div>
+            <div class="cal-day-name is-weekend">Sun</div>
+          </div>
+          <div class="calendar-grid" id="calendarGrid">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Pop-Up / Expanded Task List Underneath Calendar View -->
+        <div class="calendar-day-detail-panel" id="calDayBottomPanel" style="display: none;">
+          <div class="cal-bottom-header">
+            <div class="cal-bottom-title-area">
+              <span class="cal-bottom-eyebrow" id="calBottomDayOfWeek">Thursday</span>
+              <h3 id="calBottomDateTitle">October 8, 2026</h3>
+              <div class="cal-bottom-meta-chips">
+                <span class="badge-subtle" id="calBottomTaskCount">0 Tasks</span>
+                <span class="badge-subtle is-primary" id="calBottomPeopleCount">0 Assignees</span>
+              </div>
+            </div>
+            <button class="btn-icon" id="btnCloseCalBottomPanel" title="Close day details">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+          </div>
+
+          <!-- Workload responsibility breakdown strip -->
+          <div class="cal-bottom-team-strip" id="calBottomTeamStrip">
+            <!-- Rendered via JS -->
+          </div>
+
+          <!-- Full list of tasks for the day -->
+          <div class="cal-bottom-tasks-container" id="calBottomTasksList">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW 4: KANBAN BOARD VIEW -->
+      <section id="viewKanban" class="view-panel">
+        <div class="view-header-bar">
+          <div class="header-left">
+            <h2>Kanban Board</h2>
+            <p class="subtext">Group cards by Bucket, Status, or Priority</p>
+          </div>
+          <div class="kanban-group-selector">
+            <label>Group by:</label>
+            <select id="kanbanGroupBy">
+              <option value="status">Status (Not Started, In Progress, Completed)</option>
+              <option value="bucket">Bucket</option>
+              <option value="priority">Priority</option>
+              <option value="assignee">Assignee</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="kanban-board-container" id="kanbanBoardContainer">
+          <!-- Rendered via JS -->
+        </div>
+      </section>
+
+      <!-- VIEW 5: TEAM WORKLOAD VIEW -->
+      <section id="viewWorkload" class="view-panel">
+        <div class="view-header-bar">
+          <div class="header-left">
+            <h2>Team Capacity & Workload Heatmap</h2>
+            <p class="subtext">Resource allocation and task distribution across team members</p>
+          </div>
+        </div>
+
+        <div class="workload-container" id="workloadContainer">
+          <!-- Rendered via JS -->
+        </div>
+      </section>
+
+    </main>
+
+
+
+    <!-- Task Detail Drawer / Modal -->
+    <div class="modal-backdrop" id="taskModalBackdrop" style="display: none;">
+      <div class="task-modal" id="taskModal">
+        <div class="modal-header">
+          <div class="modal-title-row">
+            <span class="badge" id="modalPriorityBadge">Priority</span>
+            <span class="badge" id="modalStatusBadge">Status</span>
+            <span class="badge" id="modalBucketBadge">Bucket</span>
+          </div>
+          <h2 id="modalTaskTitle" class="modal-title">Task Title</h2>
+          <button class="btn-close" id="btnCloseModal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="modal-meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">Assigned To:</span>
+              <div class="meta-val" id="modalAssignee">Unassigned</div>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Due Date:</span>
+              <div class="meta-val" id="modalDueDate">No Due Date</div>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Created:</span>
+              <div class="meta-val" id="modalCreatedDate">-</div>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Completed:</span>
+              <div class="meta-val" id="modalCompletedDate">-</div>
+            </div>
+          </div>
+
+          <div class="modal-section" id="modalLabelsSection">
+            <h4>Labels & Tags</h4>
+            <div class="tags-container" id="modalLabels"></div>
+          </div>
+
+          <div class="modal-section">
+            <h4>Description & Notes</h4>
+            <div class="task-description-box" id="modalDescription">No description provided.</div>
+          </div>
+
+          <div class="modal-section" id="modalChecklistSection">
+            <h4>Checklist (<span id="modalChecklistCount">0/0</span>)</h4>
+            <div class="checklist-items" id="modalChecklist"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings & Customization Drawer -->
+    <div class="modal-backdrop" id="settingsModalBackdrop" style="display: none;">
+      <div class="settings-drawer" id="settingsDrawer">
+        <div class="modal-header">
+          <h2>Dashboard Settings & Aliases</h2>
+          <button class="btn-close" id="btnCloseSettings">&times;</button>
+        </div>
+        <div class="modal-body">
+          <!-- Admin & Editorial Customization Section -->
+          <div class="settings-section admin-editorial-section" id="adminEditorialSection">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+              <h3 style="margin: 0;">Editorial Access & Custom Headings</h3>
+              <span class="badge" id="adminAuthBadge" style="background: rgba(0,0,0,0.06); color: var(--text-secondary); border: 1px solid var(--border-subtle); font-size: 0.7rem;">🔒 Locked</span>
+            </div>
+            <p class="settings-desc">Log in with administrator credentials to customize all dashboard titles, subtitles, and eyebrows.</p>
+
+            <!-- Locked State: Login Form -->
+            <div id="adminLoginForm" class="admin-login-box">
+              <div class="form-row" style="margin-bottom: 0.6rem;">
+                <input type="text" id="adminAuthIdInput" class="input-text" placeholder="Admin ID / Email" autocomplete="off" autocorrect="off" autocapitalize="none">
+              </div>
+              <div class="form-row" style="margin-bottom: 0.75rem;">
+                <input type="password" id="adminAuthPwInput" class="input-text" placeholder="Password" autocomplete="off">
+              </div>
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <button type="button" class="btn btn-sm btn-primary" id="btnAdminUnlock">Unlock Editorial Access</button>
+                <span id="adminLoginFeedback" class="admin-login-msg" style="display: none; font-size: 0.78rem;"></span>
+              </div>
+            </div>
+
+            <!-- Unlocked State: Content Management & Controls -->
+            <div id="adminUnlockedPanel" class="admin-unlocked-panel" style="display: none;">
+              <div class="admin-controls-strip">
+                <button type="button" class="btn btn-sm btn-primary" id="btnTogglePageEditMode">
+                  <span id="btnTogglePageEditText">✍️ Turn On Inline Editing</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline" id="btnAdminLock">Sign Out / Lock</button>
+              </div>
+
+              <!-- Structured Field Editors -->
+              <div class="admin-fields-container" id="adminFieldsContainer">
+                <!-- Dynamically populated fields -->
+              </div>
+
+              <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+                <button type="button" class="btn btn-sm btn-primary" id="btnSaveTextOverrides">Save All Text</button>
+                <button type="button" class="btn btn-sm btn-outline" id="btnResetTextOverrides">Restore Defaults</button>
+                <button type="button" class="btn btn-sm btn-outline" id="btnExportTextJson" title="Copy text JSON for GitHub">📋 Copy JSON for GitHub</button>
+              </div>
+
+              <!-- Cloud Persistence Accordion -->
+              <div class="cloud-sync-info-box" style="margin-top: 1.25rem; padding: 0.85rem; background: var(--bg-primary); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <strong style="font-size: 0.82rem;">Cloud Sync for GitHub Pages</strong>
+                  <span class="badge" id="cloudSyncStatusBadge" style="font-size: 0.65rem; background: rgba(0, 85, 255, 0.1); color: var(--accent-blue); border: 1px solid var(--accent-blue);">LocalStorage (Active)</span>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-secondary); margin: 0.35rem 0 0.5rem 0; line-height: 1.4;">
+                  Changes save and reflect instantly. To sync live across all visitors on GitHub Pages (e.g. for your boss), connect Firebase Firestore below.
+                </p>
+                <button type="button" class="btn btn-xs btn-outline" id="btnToggleFirestoreConfig">Configure Cloud Firestore</button>
+                
+                <div id="firestoreConfigWrap" style="display: none; margin-top: 0.75rem;">
+                  <textarea id="firestoreConfigJson" class="input-text" rows="4" style="font-family: monospace; font-size: 0.72rem;" placeholder='Paste your Firebase config JSON here:
+{
+  "apiKey": "...",
+  "projectId": "...",
+  "appId": "..."
+}'></textarea>
+                  <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
+                    <button type="button" class="btn btn-xs btn-primary" id="btnSaveFirestoreConfig">Connect Firestore</button>
+                    <button type="button" class="btn btn-xs btn-outline" id="btnClearFirestoreConfig">Disconnect</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+              <h3 style="margin: 0;">pCloud Live Cloud Source</h3>
+              <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.7rem;">pCloud Connected</span>
+            </div>
+            <p class="settings-desc">The pCloud public link or public code queried for live Excel task updates (auto-refreshed every 2 hours).</p>
+            <input type="text" id="settingsPcloudLink" class="input-text" value="https://u.pcloud.link/publink/show?code=XZonTYJZHVtopfBfvtyoR2DmV4ctcfrfOPBX" placeholder="pCloud Public Link (e.g. https://u.pcloud.link/publink/show?code=...)">
+          </div>
+
+          <div class="settings-section">
+            <h3>Friendly Bucket Names</h3>
+            <p class="settings-desc">Assign clean, human-readable names to your 7 Planner bucket IDs:</p>
+            <div class="bucket-rename-list" id="bucketRenameList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3>Team Member Aliases</h3>
+            <p class="settings-desc">Assign names to your team assignee GUIDs (e.g. Aisah, Adam):</p>
+            <div class="assignee-rename-list" id="assigneeRenameList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h3>Planner Labels & Categories</h3>
+            <p class="settings-desc">Customize or update your Planner category names (e.g. CORE-Project, Google, Facebook):</p>
+            <div class="label-rename-list" id="labelRenameList">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <div class="settings-footer">
+            <button class="btn btn-primary" id="btnSaveSettings">Save Preferences</button>
+            <button class="btn btn-outline" id="btnResetSettings">Restore Defaults</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Firebase App & Firestore compat (for zero-server global persistence on GitHub Pages) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

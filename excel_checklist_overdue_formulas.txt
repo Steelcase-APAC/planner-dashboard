@@ -1,0 +1,16 @@
+Paste each into row 2 of its column (only if the column is blank on new rows), press Enter.
+
+ChecklistDone (AD2):
+=(LEN([@ChecklistSummary])-LEN(SUBSTITUTE([@ChecklistSummary],"""isChecked"":true","")))/LEN("""isChecked"":true")
+
+ChecklistOpen (AE2):
+=[@ChecklistItemCount]-[@ChecklistDone]
+
+IsOverdue (AF2):
+=IF(OR([@DueDateTime]="",[@PercentComplete]=100),"No",IF(DATEVALUE(LEFT([@DueDateTime],10))<TODAY(),"Yes","No"))
+
+DaysOverdue (AG2):
+=IF([@IsOverdue]="Yes",TODAY()-DATEVALUE(LEFT([@DueDateTime],10)),0)
+
+DaysToDue (AH2):
+=IF(OR([@DueDateTime]="",[@PercentComplete]=100),"",DATEVALUE(LEFT([@DueDateTime],10))-TODAY())
