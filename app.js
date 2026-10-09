@@ -179,27 +179,29 @@ document.addEventListener("DOMContentLoaded", async () => {
     setTimeout(openSettingsDrawer, 200);
   }
   
-  // Try loading cached tasks first for 0ms startup
+  // Try loading cached tasks first for 0ms instant startup
   let hasData = loadCachedTasks();
   if (hasData) {
+    populateFilterOptions();
     applyFiltersAndRender();
-  } else {
-    // Instant preload from local JSON file
-    try {
-      const resp = await fetch("data/planner_tasks.json");
-      if (resp.ok) {
-        const payload = await resp.json();
-        const list = Array.isArray(payload) ? payload : payload.tasks;
-        if (Array.isArray(list) && list.length > 0) {
-          state.tasks = normalizeRawTaskObjects(list);
-          populateFilterOptions();
-          applyFiltersAndRender();
-        }
-      }
-    } catch (e) {}
   }
+
+  // Always load latest static bundle immediately and warm up local cache
+  try {
+    const resp = await fetch("data/planner_tasks.json");
+    if (resp.ok) {
+      const payload = await resp.json();
+      const list = Array.isArray(payload) ? payload : payload.tasks;
+      if (Array.isArray(list) && list.length > 0) {
+        state.tasks = normalizeRawTaskObjects(list);
+        cacheTasks(state.tasks);
+        populateFilterOptions();
+        applyFiltersAndRender();
+      }
+    }
+  } catch (e) {}
   
-  // Trigger live sync from pCloud
+  // Trigger live sync in background
   fetchDataFromSheet();
 
   // Setup periodic sync countdown and 2-hour interval
@@ -750,6 +752,13 @@ function parseCSVRow(line) {
    ========================================================================== */
 
 function applyFiltersAndRender() {
+  if (!Array.isArray(state.tasks) || state.tasks.length === 0) {
+    if (!loadCachedTasks()) {
+      console.warn("applyFiltersAndRender deferred: tasks not loaded yet.");
+      return;
+    }
+  }
+
   const query = state.filters.search.toLowerCase().trim();
   const labelFilter = state.filters.label || "ALL";
   const priorityFilter = state.filters.priority;
@@ -1060,8 +1069,17 @@ function renderStrategicProjectsRadar(allTasks) {
     state.expandedTaskChecklists = new Set();
   }
 
+  // Always defensively ensure we have a valid non-empty task collection
+  const safeTasks = (Array.isArray(allTasks) && allTasks.length > 0)
+    ? allTasks
+    : (Array.isArray(state.filteredTasks) && state.filteredTasks.length > 0)
+      ? state.filteredTasks
+      : (Array.isArray(state.tasks) && state.tasks.length > 0)
+        ? state.tasks
+        : [];
+
   // Filter tasks that qualify as strategic projects
-  const projectTasks = allTasks.filter(isStrategicProject);
+  const projectTasks = safeTasks.filter(isStrategicProject);
 
   const badgeEl = document.getElementById("strategicProjectCountBadge");
   if (badgeEl) badgeEl.textContent = `${projectTasks.length} Strategic Projects`;
@@ -1083,9 +1101,13 @@ function renderStrategicProjectsRadar(allTasks) {
       const isActive = state.selectedProjectDomain === domName;
       pill.className = `domain-filter-pill ${isActive ? "active" : ""}`;
       pill.innerHTML = `<span>${escapeHtml(domName)}</span><span class="pill-count">${domainCounts[domName]}</span>`;
-      pill.onclick = () => {
+      pill.onclick = (e) => {
+        if (e) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
         state.selectedProjectDomain = isActive ? "ALL" : domName;
-        renderStrategicProjectsRadar(allTasks);
+        renderStrategicProjectsRadar(safeTasks);
       };
       filterContainer.appendChild(pill);
     });
@@ -1096,9 +1118,13 @@ function renderStrategicProjectsRadar(allTasks) {
       clearBtn.style.fontSize = "0.74rem";
       clearBtn.style.padding = "0.2rem 0.6rem";
       clearBtn.textContent = "✕ Clear Filter";
-      clearBtn.onclick = () => {
+      clearBtn.onclick = (e) => {
+        if (e) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
         state.selectedProjectDomain = "ALL";
-        renderStrategicProjectsRadar(allTasks);
+        renderStrategicProjectsRadar(safeTasks);
       };
       filterContainer.appendChild(clearBtn);
     }
@@ -1142,14 +1168,18 @@ function renderStrategicProjectsRadar(allTasks) {
 
   if (toggleAllBtn && toggleAllText) {
     toggleAllText.textContent = areAllExpanded ? "Collapse All Projects" : "Expand All Projects";
-    toggleAllBtn.onclick = () => {
+    toggleAllBtn.onclick = (e) => {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
       if (areAllExpanded) {
         state.expandedProjectGroups.clear();
         state.expandedTaskChecklists.clear();
       } else {
         allGroupIds.forEach(id => state.expandedProjectGroups.add(id));
       }
-      renderStrategicProjectsRadar(allTasks);
+      renderStrategicProjectsRadar(safeTasks);
     };
   }
 
@@ -1208,8 +1238,14 @@ function renderStrategicProjectsRadar(allTasks) {
       }
     });
 
-    // Earliest Due Date
-    const datedTasks = group.tasks.filter(t => t.dueDate).sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
+    // Earliest Due Date (safe date comparison)
+    const datedTasks = group.tasks
+      .filter(t => t.dueDate)
+      .sort((a, b) => {
+        const timeA = a.dueDate instanceof Date ? a.dueDate.getTime() : new Date(a.dueDate).getTime();
+        const timeB = b.dueDate instanceof Date ? b.dueDate.getTime() : new Date(b.dueDate).getTime();
+        return (timeA || 0) - (timeB || 0);
+      });
     const groupDeadlineBadge = datedTasks.length > 0 ? formatDueDateBadge(datedTasks[0]) : '<span class="subtext">No due date</span>';
 
     // -------------------------------------------------------------
@@ -1217,14 +1253,6 @@ function renderStrategicProjectsRadar(allTasks) {
     // -------------------------------------------------------------
     const groupTr = document.createElement("tr");
     groupTr.className = "project-group-row";
-    groupTr.onclick = (e) => {
-      if (state.expandedProjectGroups.has(group.id)) {
-        state.expandedProjectGroups.delete(group.id);
-      } else {
-        state.expandedProjectGroups.add(group.id);
-      }
-      renderStrategicProjectsRadar(allTasks);
-    };
 
     groupTr.innerHTML = `
       <td>
@@ -1242,6 +1270,30 @@ function renderStrategicProjectsRadar(allTasks) {
       <td>${groupDeadlineBadge}</td>
       <td>${renderPriorityPill(highestPriority)}</td>
     `;
+
+    const toggleGroup = (e) => {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      if (state.expandedProjectGroups.has(group.id)) {
+        state.expandedProjectGroups.delete(group.id);
+      } else {
+        state.expandedProjectGroups.add(group.id);
+      }
+      renderStrategicProjectsRadar(safeTasks);
+    };
+
+    const expandBtn = groupTr.querySelector(".btn-tree-expand");
+    if (expandBtn) {
+      expandBtn.onclick = toggleGroup;
+    }
+
+    groupTr.onclick = (e) => {
+      if (e.target.closest("button") || e.target.closest("a")) return;
+      toggleGroup(e);
+    };
+
     tableBody.appendChild(groupTr);
 
     // -------------------------------------------------------------
@@ -1298,18 +1350,22 @@ function renderStrategicProjectsRadar(allTasks) {
         if (titleLink) {
           titleLink.onclick = (e) => {
             e.stopPropagation();
+            e.preventDefault();
             openTaskModal(t.id);
           };
         }
 
         const handleClToggle = (e) => {
-          e.stopPropagation();
+          if (e) {
+            e.stopPropagation();
+            e.preventDefault();
+          }
           if (state.expandedTaskChecklists.has(t.id)) {
             state.expandedTaskChecklists.delete(t.id);
           } else {
             state.expandedTaskChecklists.add(t.id);
           }
-          renderStrategicProjectsRadar(allTasks);
+          renderStrategicProjectsRadar(safeTasks);
         };
 
         if (clBtn) clBtn.onclick = handleClToggle;

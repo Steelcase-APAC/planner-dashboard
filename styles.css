@@ -3147,6 +3147,7 @@ body.theme-light .moon-icon { display: block; }
   align-items: center;
   gap: 0.55rem;
   padding-left: 1.75rem;
+  max-width: 480px;
 }
 
 .tree-branch-symbol {
@@ -3154,6 +3155,7 @@ body.theme-light .moon-icon { display: block; }
   font-weight: 700;
   font-size: 0.95rem;
   user-select: none;
+  flex-shrink: 0;
 }
 
 .btn-subtask-cl-expand {
@@ -3187,6 +3189,8 @@ body.theme-light .moon-icon { display: block; }
   color: var(--text-main);
   cursor: pointer;
   transition: color 0.15s ease;
+  white-space: normal;
+  line-height: 1.35;
 }
 
 .subtask-title-link:hover {
