@@ -867,7 +867,17 @@ function renderCurrentView() {
    ========================================================================== */
 
 function renderDashboardView() {
-  const tasks = state.filteredTasks;
+  // Defensively ensure portfolio tasks are always available and top widgets never collapse to zero
+  const safePortfolioTasks = (Array.isArray(state.tasks) && state.tasks.length > 0)
+    ? state.tasks
+    : (Array.isArray(state.filteredTasks) && state.filteredTasks.length > 0)
+      ? state.filteredTasks
+      : [];
+
+  const tasks = (Array.isArray(state.filteredTasks) && state.filteredTasks.length > 0)
+    ? state.filteredTasks
+    : safePortfolioTasks;
+
   const total = tasks.length;
   
   let inProgressCount = 0;
@@ -1419,7 +1429,15 @@ function renderStrategicProjectsRadar(allTasks) {
 }
 
 function renderDayToDaySection(allTasks) {
-  const dayTasks = allTasks.filter(t => !isStrategicProject(t));
+  const safeTasks = (Array.isArray(allTasks) && allTasks.length > 0)
+    ? allTasks
+    : (Array.isArray(state.filteredTasks) && state.filteredTasks.length > 0)
+      ? state.filteredTasks
+      : (Array.isArray(state.tasks) && state.tasks.length > 0)
+        ? state.tasks
+        : [];
+
+  const dayTasks = safeTasks.filter(t => !isStrategicProject(t));
 
   const badgeEl = document.getElementById("dayToDayCountBadge");
   if (badgeEl) badgeEl.textContent = `${dayTasks.length} Day-to-Day Tasks`;
@@ -1459,9 +1477,13 @@ function renderDayToDaySection(allTasks) {
       const isActive = state.dayToDayFilter === def.key;
       pill.className = `domain-filter-pill ${isActive ? "active" : ""}`;
       pill.innerHTML = `<span>${escapeHtml(def.label)}</span><span class="pill-count">${def.count}</span>`;
-      pill.onclick = () => {
+      pill.onclick = (e) => {
+        if (e) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
         state.dayToDayFilter = def.key;
-        renderDayToDaySection(allTasks);
+        renderDayToDaySection(safeTasks);
       };
       filterContainer.appendChild(pill);
     });
@@ -1525,7 +1547,7 @@ function renderDayToDaySection(allTasks) {
 
   if (searchInput && !searchInput.dataset.bound) {
     searchInput.dataset.bound = "true";
-    searchInput.oninput = () => renderDayToDaySection(allTasks);
+    searchInput.oninput = () => renderDayToDaySection(safeTasks);
   }
 }
 
@@ -1574,11 +1596,17 @@ function renderDeliverablesHealth(tasks) {
   const container = document.getElementById("deliverablesHealthContainer");
   if (!container) return;
 
+  const safeTasks = (Array.isArray(tasks) && tasks.length > 0)
+    ? tasks
+    : (Array.isArray(state.tasks) && state.tasks.length > 0)
+      ? state.tasks
+      : [];
+
   let totalItems = 0;
   let doneItems = 0;
   const domainDeliverables = {};
 
-  tasks.forEach(t => {
+  safeTasks.forEach(t => {
     const cl = parseChecklistStats(t);
     if (cl.total > 0) {
       totalItems += cl.total;
@@ -1724,6 +1752,12 @@ function renderVelocityChart(tasks) {
   if (!container) return;
   container.innerHTML = "";
 
+  const safeTasks = (Array.isArray(tasks) && tasks.length > 0)
+    ? tasks
+    : (Array.isArray(state.tasks) && state.tasks.length > 0)
+      ? state.tasks
+      : [];
+
   // Dynamic 5 Trailing Weekly Periods ending with the current active week
   const today = new Date();
   const dayOfWeek = today.getDay(); // 0 is Sunday, 1 is Monday...
@@ -1761,7 +1795,7 @@ function renderVelocityChart(tasks) {
     });
   }
 
-  tasks.forEach(t => {
+  safeTasks.forEach(t => {
     const cDate = t.createdDate || t.startDate;
     if (cDate) {
       periods.forEach(p => {
@@ -1896,6 +1930,12 @@ function renderRunwayBars(tasks) {
   if (!container) return;
   container.innerHTML = "";
 
+  const safeTasks = (Array.isArray(tasks) && tasks.length > 0)
+    ? tasks
+    : (Array.isArray(state.tasks) && state.tasks.length > 0)
+      ? state.tasks
+      : [];
+
   const now = new Date();
   const nowMs = now.getTime();
   const dayMs = 86400000;
@@ -1910,7 +1950,7 @@ function renderRunwayBars(tasks) {
 
   let activeScheduledCount = 0;
 
-  tasks.forEach(t => {
+  safeTasks.forEach(t => {
     if (t.status === "COMPLETED") return;
     if (!t.dueDate) {
       buckets[4].tasks.push(t);
