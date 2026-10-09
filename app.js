@@ -1661,14 +1661,42 @@ function renderVelocityChart(tasks) {
   if (!container) return;
   container.innerHTML = "";
 
-  // 5 Weekly Periods covering the plan lifecycle
-  const periods = [
-    { label: "W38 (Sep 21)", start: new Date(2026, 8, 21), end: new Date(2026, 8, 27, 23, 59, 59), created: 0, completed: 0 },
-    { label: "W39 (Sep 28)", start: new Date(2026, 8, 28), end: new Date(2026, 9, 4, 23, 59, 59), created: 0, completed: 0 },
-    { label: "W40 (Oct 05)", start: new Date(2026, 9, 5), end: new Date(2026, 9, 11, 23, 59, 59), created: 0, completed: 0 },
-    { label: "W41 (Oct 12)", start: new Date(2026, 9, 12), end: new Date(2026, 9, 18, 23, 59, 59), created: 0, completed: 0 },
-    { label: "W42 (Oct 19)", start: new Date(2026, 9, 19), end: new Date(2026, 9, 25, 23, 59, 59), created: 0, completed: 0 }
-  ];
+  // Dynamic 5 Trailing Weekly Periods ending with the current active week
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0 is Sunday, 1 is Monday...
+  const diffToMonday = (dayOfWeek === 0 ? -6 : 1) - dayOfWeek;
+  const currentMonday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + diffToMonday, 0, 0, 0, 0);
+
+  const periods = [];
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  for (let i = 4; i >= 0; i--) {
+    const start = new Date(currentMonday);
+    start.setDate(start.getDate() - (i * 7));
+    const end = new Date(start);
+    end.setDate(end.getDate() + 6);
+    end.setHours(23, 59, 59, 999);
+
+    // Calculate standard ISO week number
+    const tempDate = new Date(start);
+    tempDate.setHours(0, 0, 0, 0);
+    tempDate.setDate(tempDate.getDate() + 3 - (tempDate.getDay() + 6) % 7);
+    const week1 = new Date(tempDate.getFullYear(), 0, 4);
+    const weekNum = 1 + Math.round(((tempDate.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
+
+    const monthStr = monthNames[start.getMonth()];
+    const dateStr = String(start.getDate()).padStart(2, "0");
+    const isCurrent = (i === 0);
+
+    periods.push({
+      label: `W${weekNum} (${monthStr} ${dateStr})`,
+      isCurrent: isCurrent,
+      start: start,
+      end: end,
+      created: 0,
+      completed: 0
+    });
+  }
 
   tasks.forEach(t => {
     const cDate = t.createdDate || t.startDate;
@@ -1678,7 +1706,7 @@ function renderVelocityChart(tasks) {
       });
     }
     if (t.status === "COMPLETED") {
-      const compDate = t.dueDate || cDate || new Date();
+      const compDate = t.completedDate || t.dueDate || cDate || new Date();
       periods.forEach(p => {
         if (compDate >= p.start && compDate <= p.end) p.completed++;
       });
@@ -1733,7 +1761,10 @@ function renderVelocityChart(tasks) {
   let xLabels = "";
   periods.forEach((p, i) => {
     const x = getX(i);
-    xLabels += `<text x="${x}" y="${height - 10}" fill="var(--text-muted)" font-size="10" text-anchor="middle">${p.label}</text>`;
+    const isCurrent = p.isCurrent;
+    const labelColor = isCurrent ? "#0055ff" : "var(--text-muted)";
+    const fontWeight = isCurrent ? "700" : "500";
+    xLabels += `<text x="${x}" y="${height - 10}" fill="${labelColor}" font-size="10" font-weight="${fontWeight}" text-anchor="middle">${p.label}</text>`;
   });
 
   let inPoints = "";
@@ -1742,7 +1773,7 @@ function renderVelocityChart(tasks) {
     const y = getY(p.created);
     inPoints += `
       <circle cx="${x}" cy="${y}" r="4" fill="#000000" stroke="#fff" stroke-width="1.5">
-        <title>Inflow (Created): ${p.created} in ${p.label}</title>
+        <title>Inflow (Created): ${p.created} in ${p.label}${p.isCurrent ? " (Current Active Week)" : ""}</title>
       </circle>
       <text x="${x}" y="${y - 8}" fill="#000000" font-size="10" font-weight="700" text-anchor="middle">${p.created}</text>
     `;
@@ -1754,7 +1785,7 @@ function renderVelocityChart(tasks) {
     const y = getY(p.completed);
     outPoints += `
       <circle cx="${x}" cy="${y}" r="4" fill="#0055ff" stroke="#fff" stroke-width="1.5">
-        <title>Outflow (Completed): ${p.completed} in ${p.label}</title>
+        <title>Outflow (Completed): ${p.completed} in ${p.label}${p.isCurrent ? " (Current Active Week)" : ""}</title>
       </circle>
       <text x="${x}" y="${y + 16}" fill="#0055ff" font-size="10" font-weight="700" text-anchor="middle">${p.completed}</text>
     `;
@@ -1765,10 +1796,13 @@ function renderVelocityChart(tasks) {
   const netVelocity = totalCompleted - totalCreated;
 
   container.innerHTML = `
-    <div style="display: flex; gap: 1.5rem; margin-bottom: 0.65rem; font-size: 0.78rem; color: var(--text-muted);">
-      <span>Inflow Total: <strong style="color: var(--text-main);">${totalCreated}</strong></span>
-      <span>Outflow Total: <strong style="color: var(--brand-primary);">${totalCompleted}</strong></span>
-      <span>Net Backlog: <strong style="color: var(--text-main);">${netVelocity > 0 ? '+' : ''}${netVelocity}</strong></span>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; font-size: 0.78rem; color: var(--text-muted);">
+      <div style="display: flex; gap: 1.5rem;">
+        <span>Inflow Total: <strong style="color: var(--text-main);">${totalCreated}</strong></span>
+        <span>Outflow Total: <strong style="color: var(--brand-primary);">${totalCompleted}</strong></span>
+        <span>Net Backlog: <strong style="color: var(--text-main);">${netVelocity > 0 ? '+' : ''}${netVelocity}</strong></span>
+      </div>
+      <span style="font-size: 0.72rem; color: #0055ff; font-weight: 600;">Trailing 5 Weeks</span>
     </div>
     <svg class="velocity-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
       <defs>
