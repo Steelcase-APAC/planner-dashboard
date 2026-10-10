@@ -22,6 +22,14 @@ const CONFIG = {
     CUSTOM_TEXT: "plannerhub_custom_text_overrides",
     ADMIN_SESSION: "plannerhub_admin_session",
     FIREBASE_CONFIG: "plannerhub_firebase_config"
+  },
+  DEFAULT_FIREBASE_CONFIG: {
+    apiKey: "AIzaSyCXYlrReKe8NwO8yz3HIX0hVY7EoVpZDyU",
+    authDomain: "sc-planner-dashboard.firebaseapp.com",
+    projectId: "sc-planner-dashboard",
+    storageBucket: "sc-planner-dashboard.firebasestorage.app",
+    messagingSenderId: "1063064220924",
+    appId: "1:1063064220924:web:184bec71c5bd90ef06d379"
   }
 };
 
@@ -3497,11 +3505,22 @@ function exportTextOverridesJson() {
 }
 
 function initFirestoreSync() {
+  if (typeof firebase === "undefined") return;
+  if (localStorage.getItem("plannerhub_firebase_disabled") === "true") return;
+
   const savedConfig = localStorage.getItem(CONFIG.STORAGE_KEYS.FIREBASE_CONFIG);
-  if (!savedConfig || typeof firebase === "undefined") return;
+  let configObj = null;
+  if (savedConfig) {
+    try {
+      configObj = JSON.parse(savedConfig);
+    } catch (e) {}
+  }
+  if (!configObj && CONFIG.DEFAULT_FIREBASE_CONFIG) {
+    configObj = CONFIG.DEFAULT_FIREBASE_CONFIG;
+  }
+  if (!configObj) return;
 
   try {
-    const configObj = JSON.parse(savedConfig);
     if (!firebase.apps || !firebase.apps.length) {
       firebase.initializeApp(configObj);
     }
@@ -3520,8 +3539,15 @@ function initFirestoreSync() {
       .onSnapshot(doc => {
         if (doc.exists) {
           const remoteData = doc.data();
-          applyCustomTextOverrides(remoteData);
-          localStorage.setItem(CONFIG.STORAGE_KEYS.CUSTOM_TEXT, JSON.stringify(state.textOverrides));
+          if (remoteData && Object.keys(remoteData).length > 0) {
+            applyCustomTextOverrides(remoteData);
+            localStorage.setItem(CONFIG.STORAGE_KEYS.CUSTOM_TEXT, JSON.stringify(state.textOverrides));
+          }
+        } else {
+          // If Firestore document doesn't exist yet, seed it with current text overrides
+          if (state.textOverrides && Object.keys(state.textOverrides).length > 0) {
+            state.firestoreDb.collection("dashboard_config").doc("text_overrides").set(state.textOverrides).catch(() => {});
+          }
         }
       }, err => {
         console.warn("Firestore sync error:", err);
@@ -3544,7 +3570,7 @@ function setupFirestoreConfigUI() {
     });
   }
 
-  const existingConfig = localStorage.getItem(CONFIG.STORAGE_KEYS.FIREBASE_CONFIG);
+  const existingConfig = localStorage.getItem(CONFIG.STORAGE_KEYS.FIREBASE_CONFIG) || (CONFIG.DEFAULT_FIREBASE_CONFIG ? JSON.stringify(CONFIG.DEFAULT_FIREBASE_CONFIG, null, 2) : "");
   if (jsonArea && existingConfig) {
     jsonArea.value = existingConfig;
   }
@@ -3555,6 +3581,7 @@ function setupFirestoreConfigUI() {
       if (!val) return;
       try {
         JSON.parse(val);
+        localStorage.removeItem("plannerhub_firebase_disabled");
         localStorage.setItem(CONFIG.STORAGE_KEYS.FIREBASE_CONFIG, val);
         initFirestoreSync();
         showAlert("Firebase Firestore configuration saved and connected!", "success");
@@ -3566,6 +3593,7 @@ function setupFirestoreConfigUI() {
 
   if (clearBtn && jsonArea) {
     clearBtn.addEventListener("click", () => {
+      localStorage.setItem("plannerhub_firebase_disabled", "true");
       localStorage.removeItem(CONFIG.STORAGE_KEYS.FIREBASE_CONFIG);
       jsonArea.value = "";
       state.firestoreDb = null;
