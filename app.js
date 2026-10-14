@@ -65,25 +65,19 @@ const DEFAULT_TEXT_MAP = {
   "analytics.checklist.subtitle": "Task deliverable completion meter"
 };
 
-// Obfuscated credential verification split across 4 decoupled segments (invisible to inspection)
-const _kSec1 = () => [59, 40, 62, 63, 52, 46, 57, 63].map(b => String.fromCharCode(b ^ 0x5a)).join('');
-const _kSec2 = () => [81, 75, 74, 77, 70, 127, 88, 82].map(b => String.fromCharCode(b ^ 0x3f)).join('');
-const _kSec3 = () => [29, 21, 16, 82, 31, 19, 17, 0].map(b => String.fromCharCode(b ^ 0x7c)).join('');
-const _kSec4 = () => [24, 24, 25, 24, 25, 24].map(b => String.fromCharCode(b ^ 0x2b)).join('');
-
+// Cryptographic one-way verification (salted SHA-256)
 async function verifyAdminAuth(idVal, pwVal) {
   if (!idVal || !pwVal) return false;
-  const candidate = `${idVal.trim().toLowerCase()}|${pwVal.trim()}`;
-  const target = _kSec1() + _kSec2() + _kSec3() + _kSec4();
-  if (candidate !== target) return false;
-  
   try {
+    const salt = "PlannerHub::AdminAuthSalt_2026";
+    const candidate = `${salt}:${idVal.trim().toLowerCase()}:${pwVal.trim()}`;
     const enc = new TextEncoder();
     const buf = await crypto.subtle.digest("SHA-256", enc.encode(candidate));
     const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-    return hex === "178f063c506c795639eec25c25bd9329b5081b53ad9e5a14e795efa17dec3f7d";
+    return hex === "6608ff58ae97652db9e63bd1540cfe072fe8069b8c606295ed2d8eabc11c80e8";
   } catch (e) {
-    return true; // Fallback if crypto.subtle is unavailable
+    console.error("Crypto error during admin auth verification:", e);
+    return false;
   }
 }
 
