@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Always load latest static bundle immediately and warm up local cache
   try {
-    const resp = await fetch("data/planner_tasks.json");
+    const resp = await fetch("data/planner_tasks.json?v=" + Date.now(), { cache: "no-store" });
     if (resp.ok) {
       const payload = await resp.json();
       const list = Array.isArray(payload) ? payload : payload.tasks;
@@ -565,7 +565,7 @@ async function fetchDataFromSheet() {
     // Step 2: Fallback to static JSON cache (data/planner_tasks.json)
     if (!tasks || tasks.length === 0) {
       try {
-        const jsonResp = await fetch("data/planner_tasks.json", { cache: "no-store" });
+        const jsonResp = await fetch("data/planner_tasks.json?v=" + Date.now(), { cache: "no-store" });
         if (jsonResp.ok) {
           const jsonPayload = await jsonResp.json();
           const list = Array.isArray(jsonPayload) ? jsonPayload : jsonPayload.tasks;

@@ -85,6 +85,65 @@ def parse_xlsx_tasks(xlsx_bytes):
     raw_tasks = list(task_dict.values())
     return raw_tasks, headers, rows
 
+def sync_tasks(query_code=PCLOUD_DEFAULT_CODE):
+    """Fetches latest xlsx, parses into tasks, and writes to data/planner_tasks.json and csv."""
+    content, source_label = fetch_from_pcloud(query_code)
+    tasks, headers, all_rows = parse_xlsx_tasks(content)
+    
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    os.makedirs(os.path.join(base_dir, "data"), exist_ok=True)
+    sync_payload = {
+        "success": True,
+        "source": "pCloud",
+        "sourceDetail": source_label,
+        "code": query_code,
+        "syncedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "count": len(tasks),
+        "tasks": tasks
+    }
+    
+    tasks_file = os.path.join(base_dir, "data", "planner_tasks.json")
+    with open(tasks_file, "w", encoding="utf-8") as f:
+        json.dump(sync_payload, f, indent=2)
+    
+    xlsx_file = os.path.join(base_dir, "planner_tasks_consolidated.xlsx")
+    with open(xlsx_file, "wb") as f:
+        f.write(content)
+    
+    if all_rows:
+        csv_file = os.path.join(base_dir, "data", "planner_sheet.csv")
+        with open(csv_file, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            for r in all_rows:
+                writer.writerow([str(v) if v is not None else "" for v in r])
+                
+    return sync_payload
+
+import threading
+import time
+
+def auto_sync_watcher():
+    """Watches local pCloud file and automatically refreshes tasks when updated."""
+    last_mtime = 0
+    if os.path.exists(LOCAL_PCLOUD_FILE):
+        try:
+            last_mtime = os.path.getmtime(LOCAL_PCLOUD_FILE)
+        except OSError:
+            pass
+
+    while True:
+        time.sleep(15)  # check every 15 seconds
+        try:
+            if os.path.exists(LOCAL_PCLOUD_FILE):
+                curr_mtime = os.path.getmtime(LOCAL_PCLOUD_FILE)
+                if curr_mtime > last_mtime:
+                    print(f"\n🔄 [Auto-Sync] Detected updated file in pCloud Drive. Syncing tasks...")
+                    last_mtime = curr_mtime
+                    payload = sync_tasks()
+                    print(f"✅ [Auto-Sync] Successfully updated {payload['count']} tasks.")
+        except Exception as e:
+            print(f"[Auto-Sync Watcher Error]: {e}", file=sys.stderr)
+
 class PlannerDashboardHandler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
         # Allow CORS for all local requests and prevent browser caching of code during development
@@ -154,34 +213,7 @@ class PlannerDashboardHandler(http.server.SimpleHTTPRequestHandler):
                     query_code = params["code"][0]
 
             try:
-                content, source_label = fetch_from_pcloud(query_code)
-                tasks, headers, all_rows = parse_xlsx_tasks(content)
-                
-                # Save data cache locally
-                os.makedirs("data", exist_ok=True)
-                sync_payload = {
-                    "success": True,
-                    "source": "pCloud",
-                    "sourceDetail": source_label,
-                    "code": query_code,
-                    "syncedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(),
-                    "count": len(tasks),
-                    "tasks": tasks
-                }
-                
-                with open("data/planner_tasks.json", "w", encoding="utf-8") as f:
-                    json.dump(sync_payload, f, indent=2)
-                
-                with open("planner_tasks_consolidated.xlsx", "wb") as f:
-                    f.write(content)
-                
-                # Also save CSV for legacy fallbacks
-                if all_rows:
-                    with open("data/planner_sheet.csv", "w", newline="", encoding="utf-8") as f:
-                        writer = csv.writer(f)
-                        for r in all_rows:
-                            writer.writerow([str(v) if v is not None else "" for v in r])
-
+                sync_payload = sync_tasks(query_code)
                 response_bytes = json.dumps(sync_payload).encode("utf-8")
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -218,9 +250,23 @@ class PlannerDashboardHandler(http.server.SimpleHTTPRequestHandler):
 
 def run_server():
     socketserver.TCPServer.allow_reuse_address = True
+    
+    # Startup initial sync
+    print("⏳ Running initial sync from pCloud / local drive...")
+    try:
+        init_res = sync_tasks()
+        print(f"✅ Initial sync complete: {init_res['count']} tasks loaded from {init_res['sourceDetail']}")
+    except Exception as e:
+        print(f"⚠️ Initial sync warning: {e}", file=sys.stderr)
+
+    # Start background file watcher
+    watcher_thread = threading.Thread(target=auto_sync_watcher, daemon=True)
+    watcher_thread.start()
+
     with socketserver.TCPServer(("", PORT), PlannerDashboardHandler) as httpd:
         print(f"🚀 PlannerHub Server with live pCloud Sync running at http://localhost:{PORT}")
         print(f"   pCloud Public Code: {PCLOUD_DEFAULT_CODE}")
+        print(f"   Auto-Sync Watcher: ACTIVE (watching {LOCAL_PCLOUD_FILE})")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:

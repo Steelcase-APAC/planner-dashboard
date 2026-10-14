@@ -1,0 +1,41 @@
+name: Sync Planner Tasks from pCloud
+
+on:
+  schedule:
+    # Run every 2 hours
+    - cron: '0 */2 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install openpyxl
+
+      - name: Fetch and parse latest tasks from pCloud
+        run: |
+          python3 -c "import server; res = server.sync_tasks(); print(f'Synced {res[\"count\"]} tasks from {res[\"sourceDetail\"]}')"
+
+      - name: Commit and push changes if updated
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/planner_tasks.json data/planner_sheet.csv planner_tasks_consolidated.xlsx
+          if git diff --staged --quiet; then
+            echo "No changes in Planner tasks."
+          else
+            git commit -m "chore(sync): automated pCloud Planner tasks update [skip ci]"
+            git push
+          fi
