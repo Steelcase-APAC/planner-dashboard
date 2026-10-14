@@ -1,9 +1,9 @@
 {
   "success": true,
   "source": "pCloud",
-  "sourceDetail": "pCloud Live API",
+  "sourceDetail": "Local File (planner_tasks_consolidated.xlsx)",
   "code": "XZonTYJZHVtopfBfvtyoR2DmV4ctcfrfOPBX",
-  "syncedAt": "2026-10-14T17:00:14.734722+00:00",
+  "syncedAt": "2026-10-14T21:32:26.578533+00:00",
   "count": 116,
   "tasks": [
     {
