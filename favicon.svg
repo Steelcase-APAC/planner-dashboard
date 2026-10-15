@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <clipPath id="squircle">
+      <rect width="32" height="32" rx="6" />
+    </clipPath>
+  </defs>
+  <!-- Background Tile matching .logo-icon in header -->
+  <rect width="32" height="32" rx="6" fill="#000000"/>
+  <!-- Subtle border definition for contrast across both light and dark browser tabs -->
+  <rect x="0.5" y="0.5" width="31" height="31" rx="5.5" fill="none" stroke="rgba(255, 255, 255, 0.16)" stroke-width="1"/>
+  <!-- Header Check-Square Icon: Rect + Checkmark Path -->
+  <g transform="translate(4, 4)">
+    <rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="m9 12 2 2 4-4" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
