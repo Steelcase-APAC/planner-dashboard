@@ -1,13 +1,409 @@
 {
   "success": true,
   "source": "pCloud",
-  "sourceDetail": "Local File (planner_tasks_consolidated.xlsx)",
+  "sourceDetail": "pCloud Live API",
   "code": "XZonTYJZHVtopfBfvtyoR2DmV4ctcfrfOPBX",
-  "syncedAt": "2026-10-14T21:32:26.578533+00:00",
-  "count": 116,
+  "syncedAt": "2026-10-15T00:24:20.652825+00:00",
+  "count": 127,
   "tasks": [
     {
-      "RunTimestamp": "2026-10-14T12:29:11.3602106Z",
+      "RunTimestamp": "2026-10-14T22:29:11.7205960Z",
+      "TaskId": "r-uqLCgpZk-tskdbqvXHJ2QAHnX0",
+      "Title": "Announcement - Order Scheduling Task",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T15:03:43.5626692Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T15:03:43.5627289Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-11-02T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{}",
+      "HasDescription": true,
+      "Description": "- AP-REGIONAL-OS AP-REGIONAL-OS@steelcase.com_x000D_\n- MY-SMM MY-SMM@steelcase.com_x000D_\n- AP-CN-DONGGUAN AP-CN-DGM-STEELCASE@steelcase.com_x000D_\n- AP-REGIONAL-OFT AP-REGIONAL-OFT@steelcase.com_x000D_\n- AP-IN-PUNE AP-IN-PUNE@steelcase.com",
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 1,
+      "ReferenceSummary": "[{\"resourceLink\":\"https://steelcase.sharepoint.com/sites/BrandcomDigitalTeamTaskRequest/Shared%20Documents/Delegation%20of%20Order%20Scheduling%20Responsibilities%20to%20Order%20Management%20.eml\",\"value\":{\"@odata.type\":\"#microsoft.graph.plannerExternalReference\",\"alias\":\"Delegation of Order Scheduling Responsibilities to Order Management .eml\",\"type\":\"Other\",\"previewPriority\":\"8584096166955025852PD\",\"lastModifiedDateTime\":\"2026-10-14T15:04:10.0016502Z\",\"lastModifiedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"}}}}]",
+      "OrderHint": "8584096167219616809PB",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": null,
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:14.3853518Z",
+      "TaskId": "Uq9coEsMBU-GiSkDO3k53mQAJveU",
+      "Title": "Hubspot - Workflow checking for AP",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T15:01:53.4770476Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T15:01:53.4771124Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-16T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category10\":true}",
+      "HasDescription": false,
+      "Description": null,
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 0,
+      "ReferenceSummary": "[]",
+      "OrderHint": "8584096168320629014P2",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Hubspot",
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:16.9964247Z",
+      "TaskId": "JvXyrkvVwkyOdPV8bgTCrGQAHquU",
+      "Title": "Check all forms submission - making sure all leads are flowing to AP segmentation",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T15:01:02.4263566Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T15:01:02.4264165Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-16T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category10\":true}",
+      "HasDescription": false,
+      "Description": null,
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 0,
+      "ReferenceSummary": "[]",
+      "OrderHint": "8584096168831433192P<",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Hubspot",
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:19.4176991Z",
+      "TaskId": "0JqW1bXjM0ieJIBJV0NexWQAAKS1",
+      "Title": "Country field - Salesforce Auto",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T15:00:15.6555636Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T15:00:15.655617Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-16T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category9\":true}",
+      "HasDescription": false,
+      "Description": null,
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 0,
+      "ReferenceSummary": "[]",
+      "OrderHint": "8584096169298982339PH",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Salesforce",
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:22.3755320Z",
+      "TaskId": "UkdmWczSP0qVn4XsBftGxmQABY4e",
+      "Title": "Convert large size PPT to PDF",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"129b8133-2f40-46f4-8391-49fec10f3174\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T14:54:10.6449623Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}},\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T14:54:10.6449581Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T14:54:10.6450308Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-15T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category15\":true}",
+      "HasDescription": true,
+      "Description": "[SC_26_Karman Social Marketing Kit (Japanese 3.9.26).pptx](https://steelcase.sharepoint.com/:p:/r/sites/ONEMARKETINGAPAC/Shared%20Documents/OneMarketing%20Folder/Brand%20Comms/B.%20Projects/Translations/Vendors%20translation/Karman%20Assets%202026/Jp%20final/SC_26_Karman%20Social%20Marketing%20Kit%20%28Japanese%203.9.26%29.pptx?d=w5aa917978d2e474d8c98aef428962172&amp;csf=1&amp;web=1&amp;e=xmRsYj)",
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 0,
+      "ReferenceSummary": "[]",
+      "OrderHint": "8584096172951516679P'",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Adam Lau; Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Others",
+      "AssignmentDates": "2026-10-14; 2026-10-14",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:24.6751391Z",
+      "TaskId": "MFpjDyuy-UqbkKam8gCp7GQADBhN",
+      "Title": "Nurture Series - Workflow",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "FcWT8p45_0yAmU3I_Ewh9GQAGRCc",
+      "BucketName": "Doing Now",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T14:52:04.657696Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T14:52:04.6577519Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-15T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category10\":true}",
+      "HasDescription": false,
+      "Description": null,
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 0,
+      "ReferenceSummary": "[]",
+      "OrderHint": "8584096174210173990P>",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Hubspot",
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:27.0342138Z",
+      "TaskId": "IT4tBK_7Y0yWiEMnKbz6E2QAL33Q",
+      "Title": "Changemakers plan",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T14:50:04.4937974Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T14:50:04.4938535Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-15T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category15\":true}",
+      "HasDescription": false,
+      "Description": null,
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 0,
+      "ReferenceSummary": "[]",
+      "OrderHint": "8584096175410781939PJ",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Others",
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:29.4273100Z",
+      "TaskId": "FcP1__1gRUS0mH-NUSPSR2QAJUbT",
+      "Title": "Announcement - Senior Business Consultant",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T14:47:10.2213288Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T14:47:10.2213911Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-19T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category6\":true}",
+      "HasDescription": true,
+      "Description": "I am pleased to announce that Ivan Quah has joined Steelcase as Senior Business Consultant, APAC FP&A , based in Kuala Lumpur._x000D_\n_x000D_\nIn this role, Ivan Quah will support regional planning, forecasting, performance management, and strategic analysis. He will work closely with APAC Finance and business teams to strengthen performance visibility, deliver meaningful financial insights, support investment and resource-allocation decisions, and improve the consistency and efficiency of our planning and reporting processes._x000D_\n_x000D_\nIvan Quah brings experience across FP&A, corporate strategy, commercial finance, corporate development, investment analysis, and audit. Before joining Steelcase, he held finance and strategy roles with 7-Eleven Malaysia, Sime Darby Property, Touch \u2019n Go, Artem Ventures, and PwC Malaysia. He is an ACCA-qualified finance professional with strong experience in financial modeling, business-case development, budgeting, forecasting, executive reporting, and cross-functional business partnering._x000D_\n_x000D_\nHis analytical capability, commercial perspective, and interest in FP&A transformation and reporting improvement will be valuable additions as we continue building a stronger APAC FP&A capability._x000D_\n_x000D_\nPlease join me in giving Ivan Quah a very warm welcome to Steelcase and APAC Finance._x000D_\n_x000D_\nIvan will be reporting to Adella Ma",
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 1,
+      "ReferenceSummary": "[{\"resourceLink\":\"https://steelcase.sharepoint.com/sites/BrandcomDigitalTeamTaskRequest/Shared%20Documents/IMG_8822_3028.jpeg\",\"value\":{\"@odata.type\":\"#microsoft.graph.plannerExternalReference\",\"alias\":\"IMG_8822_3028.jpeg\",\"type\":\"Other\",\"previewPriority\":\"8584096176765610810P7\",\"lastModifiedDateTime\":\"2026-10-14T14:47:48.9421567Z\",\"lastModifiedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"}}}}]",
+      "OrderHint": "8584096177153126000P1",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Email-APAnnouncement",
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:32.2283626Z",
+      "TaskId": "BmGqV8z_1kKGJH0CwZ7VCWQADXfQ",
+      "Title": "Widen Assets Migration",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T14:40:45.4367571Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T14:40:45.4368179Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-23T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category3\":true}",
+      "HasDescription": true,
+      "Description": "[Aisah - Applications + Supporting - Not Migrated.xlsx](https://steelcase-my.sharepoint.com/:x:/p/svalkenb/IQD28A950lIATJJAJrDoXMBBAVVjXTDXGmfuHzHIcLRNseI?e=YWdBYT)_x000D_\n_x000D_\nI think Lexi is working with you on marking Applications already, so if that is the case, please just mark Supporting! I don't want you to do double work._x000D_\n_x000D_\nOnes that you don't mark I can archive, and once the archival is completed, there is a way to retrieve them later.",
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 2,
+      "ReferenceSummary": "[{\"resourceLink\":\"https://steelcase.sharepoint.com/sites/BrandcomDigitalTeamTaskRequest/Shared%20Documents/Aisah%20-%20Supporting%20Family%20-%20Not%20Migrated%201.pdf\",\"value\":{\"@odata.type\":\"#microsoft.graph.plannerExternalReference\",\"alias\":\"Aisah - Supporting Family - Not Migrated 1.pdf\",\"type\":\"Pdf\",\"previewPriority\":\"8584096177776869410PG\",\"lastModifiedDateTime\":\"2026-10-14T14:46:07.8206922Z\",\"lastModifiedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"}}}},{\"resourceLink\":\"https://steelcase.sharepoint.com/sites/BrandcomDigitalTeamTaskRequest/Shared%20Documents/Aisah%20-%20Applications%20Family%20-%20Not%20Migrated.pdf\",\"value\":{\"@odata.type\":\"#microsoft.graph.plannerExternalReference\",\"alias\":\"Aisah - Applications Family - Not Migrated.pdf\",\"type\":\"Pdf\",\"previewPriority\":\"8584096178116995848P%\",\"lastModifiedDateTime\":\"2026-10-14T14:45:33.8039444Z\",\"lastModifiedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"}}}}]",
+      "OrderHint": "8584096181002504795PC",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Web-Widen",
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:35.0700375Z",
+      "TaskId": "5NxbXzm9U0mR8X32k6mNeGQAMUk3",
+      "Title": "Applications - Widen Data Enrichment",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T14:36:27.7475594Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T14:36:27.7476113Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-19T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category3\":true}",
+      "HasDescription": true,
+      "Description": "[https://experience.adobe.com/#/@steelcase/so:steelcase-Production/workfront/project/6a90490f000131b083e5d1faccf9f71a/issues?locale=en-US&localeOriginal=en-US](https://experience.adobe.com/#/@steelcase/so:steelcase-Production/workfront/project/6a90490f000131b083e5d1faccf9f71a/issues?locale=en-US&amp;localeOriginal=en-US)",
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 0,
+      "ReferenceSummary": "[]",
+      "OrderHint": "8584096183577815649P3",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Web-Widen",
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:37.3772508Z",
+      "TaskId": "WMpzkr-h8EubB57W3w00rmQAM5Qk",
+      "Title": "First Up comms plan - Vertical TV size",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "6JvhtLPIeESNdpj7RA8Ir2QAIT3A",
+      "BucketName": "To Do ",
+      "PercentComplete": 0,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-10-14T14:35:22.4517011Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-10-14T14:35:22.4517548Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-15T10:00:00Z",
+      "CompletedDateTime": null,
+      "CompletedBy": null,
+      "Labels": "{\"category15\":true}",
+      "HasDescription": true,
+      "Description": "Send ticket to IT to ask about the vertical tv size",
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 0,
+      "ReferenceSummary": "[]",
+      "OrderHint": "8584096184232730847P=",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Others",
+      "AssignmentDates": "2026-10-14T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:29:39.7010168Z",
       "TaskId": "8PerGupe7k-8TC9qFcKmxmQAGnQG",
       "Title": "Create PO for Ivanka PRAP",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -43,7 +439,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:13.6798789Z",
+      "RunTimestamp": "2026-10-14T22:29:41.9099905Z",
       "TaskId": "KOLwYhtXk0yf0oNg5Z1fBWQADn__",
       "Title": "Share with Joey / Min Hui on the assets to create once received",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -79,7 +475,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:16.2749402Z",
+      "RunTimestamp": "2026-10-14T22:29:44.0741070Z",
       "TaskId": "TpTTzdxeCUqrFSMT4LL2HmQAGLVV",
       "Title": "Create Nurture email in Japanese",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -115,7 +511,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:19.1069284Z",
+      "RunTimestamp": "2026-10-14T22:29:47.0071547Z",
       "TaskId": "cvVWGTY-x0Kx5TCslWRiHGQAGVOB",
       "Title": "Include the 10k budget accordingly in the plan",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -151,7 +547,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:22.7100757Z",
+      "RunTimestamp": "2026-10-14T22:29:49.4579106Z",
       "TaskId": "Wtp28rCL9EKmajHdYOY332QAEN3D",
       "Title": "Include exclusion for all campaigns",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -187,7 +583,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:24.8709820Z",
+      "RunTimestamp": "2026-10-14T22:29:51.7117945Z",
       "TaskId": "JTT4t0X7wEKBlTRGx7tqumQAIFkY",
       "Title": "Fix disabled Power Automate flow (BrandCom task completion)",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -223,7 +619,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:27.9791434Z",
+      "RunTimestamp": "2026-10-14T22:29:54.2767584Z",
       "TaskId": "TPlkTO8EW0C-8c5GaD8rHmQADZ2R",
       "Title": "EMEA-style campaign heads-up to sales",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -259,7 +655,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:30.1525523Z",
+      "RunTimestamp": "2026-10-14T22:29:56.7829467Z",
       "TaskId": "TbJUsV4QykaPI10fcdCem2QAH-mt",
       "Title": "Update budget tracker with approved budget",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -295,7 +691,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:32.6651716Z",
+      "RunTimestamp": "2026-10-14T22:29:59.4871066Z",
       "TaskId": "v6s3jGKO5UuqjkWZsylQ12QANSnd",
       "Title": "Share the final budget with each market manager",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -331,7 +727,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:35.3166872Z",
+      "RunTimestamp": "2026-10-14T22:30:08.2492228Z",
       "TaskId": "YIb6OiUp6E-GVU6YdOb4jGQAKmPu",
       "Title": "Get final approval for media plan budgets",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -367,7 +763,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:38.0142120Z",
+      "RunTimestamp": "2026-10-14T22:30:11.4349604Z",
       "TaskId": "Er2oCUuoCkKX8CAjW5UE4GQAKaCr",
       "Title": "Add New Audience to target (Hidden audience - Office managers, team mgrs)",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -403,7 +799,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:40.3893022Z",
+      "RunTimestamp": "2026-10-14T22:30:14.1757274Z",
       "TaskId": "AKJYMO8S3Ea60DEEzc28LmQAOj-s",
       "Title": "Reply Terre Nunez with LI PO once approved",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -439,7 +835,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:42.7023666Z",
+      "RunTimestamp": "2026-10-14T22:30:15.8119519Z",
       "TaskId": "mMmFoceMMEmFO3y4JA0afGQAEw2l",
       "Title": "test",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -475,7 +871,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:44.8960597Z",
+      "RunTimestamp": "2026-10-14T22:30:18.6731912Z",
       "TaskId": "br8t-rntrUOjV55q25GzK2QAA9p-",
       "Title": "Verify 'Steelcase leads AI search' claim",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -511,7 +907,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:47.4443681Z",
+      "RunTimestamp": "2026-10-14T22:30:21.3401043Z",
       "TaskId": "vhFU2Oj87EGqLsTanL_ShWQAHjKR",
       "Title": "Answer INC3041837 Azure questions",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -547,7 +943,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:49.6521131Z",
+      "RunTimestamp": "2026-10-14T22:30:23.6335104Z",
       "TaskId": "X_0Uh7TKuEW8MfqWzw4nM2QACOGm",
       "Title": "Danielle's QR \u2192 leads form (scope change)",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -583,7 +979,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:52.3069550Z",
+      "RunTimestamp": "2026-10-14T22:30:25.9820088Z",
       "TaskId": "HgndDzXESEuaNElMclYyzmQAEoEe",
       "Title": "Chase Meta invoice $9,289.18 (7 days past due)",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -619,12 +1015,12 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:55.6621255Z",
+      "RunTimestamp": "2026-10-14T22:30:28.2403162Z",
       "TaskId": "LfB9M_IOAE2qbOfWv5iEDmQAL2v1",
       "Title": "Steelcase Reva - Multiuse Ancillary Seating Chair",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
-      "BucketId": "f1v-2jW3aU-0dIkZTM4BkGQAEhcr",
-      "BucketName": "[Inbox]",
+      "BucketId": "hXWXxcacR0e8OSPDfuHME2QAMCsP",
+      "BucketName": "Next Week",
       "PercentComplete": 0,
       "Priority": 5,
       "PriorityLabel": "Medium",
@@ -655,7 +1051,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:29:57.7218275Z",
+      "RunTimestamp": "2026-10-14T22:30:30.9445056Z",
       "TaskId": "leF1KFTmkUuLXCazqQQJTmQAE25d",
       "Title": "Create QR code for learning Report",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -691,7 +1087,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:00.1620738Z",
+      "RunTimestamp": "2026-10-14T22:30:33.3072950Z",
       "TaskId": "adeUyIiUaUeiJYqmNDs2IGQANrAt",
       "Title": "Update Open AI team on the upcoming campaign after setup",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -727,7 +1123,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:03.2200942Z",
+      "RunTimestamp": "2026-10-14T22:30:36.0696892Z",
       "TaskId": "4chpN0fZ2UKOHZEibPWeN2QAPcZQ",
       "Title": "Google events creation & tracking",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -763,7 +1159,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:08.7218745Z",
+      "RunTimestamp": "2026-10-14T22:30:39.0613981Z",
       "TaskId": "K9hqCEij20CrlLBOi8jLaGQAEfzk",
       "Title": "Strategy Workshop Oct 12 \u2014 final prep",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -799,7 +1195,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:11.9463257Z",
+      "RunTimestamp": "2026-10-14T22:30:41.4726669Z",
       "TaskId": "TMCfdcZXiUWBvUiiI_Rrd2QAMnum",
       "Title": "steelcase.kr \u2014 align with Korean team on website plan",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -835,7 +1231,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:15.9077867Z",
+      "RunTimestamp": "2026-10-14T22:30:43.9709547Z",
       "TaskId": "5OXEHuDDIEW6grPiG9vrXGQAP5Hk",
       "Title": "Take Meta Pro Team call (ROAS drop)",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -871,7 +1267,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:18.9278201Z",
+      "RunTimestamp": "2026-10-14T22:30:46.2321764Z",
       "TaskId": "DaeTMcz8QUmTxhgk52nnimQALPOs",
       "Title": "Chase LinkedIn invoice $589.46 (overdue Oct 2)",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -907,7 +1303,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:21.7429372Z",
+      "RunTimestamp": "2026-10-14T22:30:49.1355327Z",
       "TaskId": "2Rn56KJET0mNFn3o5rQTNmQAPyyS",
       "Title": "Decide: Gus Wick 6-point reply \u2014 send or drop",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -943,7 +1339,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:24.4544058Z",
+      "RunTimestamp": "2026-10-14T22:30:51.2568654Z",
       "TaskId": "Md1xDFpLy0WPMKnOvCrDKGQAN204",
       "Title": "Send Mariela reply draft (HubSpot sync)",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -979,7 +1375,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:27.3311782Z",
+      "RunTimestamp": "2026-10-14T22:30:53.8445507Z",
       "TaskId": "VSxpiViweEKP0dqcIz8ulWQAP2dl",
       "Title": "Follow up: Aisah's HubSpot workflow audit (due Oct 12)",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1015,7 +1411,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:30.7897056Z",
+      "RunTimestamp": "2026-10-14T22:30:56.1825182Z",
       "TaskId": "SIJSXbO4_E-e-wdloHFW3mQAJHq0",
       "Title": "Check asset to be used for Traffic / Boost",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1051,7 +1447,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:36.3963351Z",
+      "RunTimestamp": "2026-10-14T22:30:58.9329665Z",
       "TaskId": "Ct0P1Ky-s0CCCiHy_ka_wWQAOcJC",
       "Title": "Check with Ivanka and Chloe on form fields to translate",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1087,7 +1483,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:38.8153340Z",
+      "RunTimestamp": "2026-10-14T22:31:01.5783565Z",
       "TaskId": "3JUkRDhCJkucx0XFzr5sjWQAH-dF",
       "Title": "Share preview with Gus before live",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1123,7 +1519,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:41.1890876Z",
+      "RunTimestamp": "2026-10-14T22:31:05.0603955Z",
       "TaskId": "pLnoVyTy-UKfHxF2NSHky2QAFwrH",
       "Title": "Prepare new assets for JP & KR translation",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1159,7 +1555,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:43.8836894Z",
+      "RunTimestamp": "2026-10-14T22:31:07.7691760Z",
       "TaskId": "MOFArwZE7kKgU49WeKVKnmQALrej",
       "Title": "Assist with JP data cleanup",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1195,7 +1591,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:46.8683089Z",
+      "RunTimestamp": "2026-10-14T22:31:10.2313576Z",
       "TaskId": "ClotRw8fYkmqkPmLV8QW8WQAOm2j",
       "Title": "Ads setup for ID including new forms",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1231,7 +1627,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:49.2760627Z",
+      "RunTimestamp": "2026-10-14T22:31:13.4203455Z",
       "TaskId": "EaEojZnfCkaUxX7WPDt-dWQAF876",
       "Title": "Ads setup for SG including new forms",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1267,7 +1663,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:51.7547498Z",
+      "RunTimestamp": "2026-10-14T22:31:30.7722472Z",
       "TaskId": "o7V32ZN38UqAt4wcI0W5lWQACoFI",
       "Title": "Ads setup for KR including the form",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1303,7 +1699,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:30:57.9800242Z",
+      "RunTimestamp": "2026-10-14T22:31:33.9602055Z",
       "TaskId": "SIs9dBetBES9kMdCGI7N9GQAMOFv",
       "Title": "Ad setup for JP including the form",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1339,7 +1735,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:01.7499572Z",
+      "RunTimestamp": "2026-10-14T22:31:37.3686099Z",
       "TaskId": "-c3HJoSuAkCRbyM7OJBEgGQAEXGe",
       "Title": "DataforSEO",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1375,7 +1771,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:04.8224547Z",
+      "RunTimestamp": "2026-10-14T22:31:40.1406187Z",
       "TaskId": "n_Q762Pp0kqZTEEvn66eDWQACiVW",
       "Title": "Migrate lead-maxxing to Azure",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1411,7 +1807,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:07.5213322Z",
+      "RunTimestamp": "2026-10-14T22:31:42.4067637Z",
       "TaskId": "Bzl3nPAinEeLZJ2r_afpEmQACBVw",
       "Title": "Schedule post for the week",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1447,7 +1843,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:10.3774956Z",
+      "RunTimestamp": "2026-10-14T22:31:45.0219451Z",
       "TaskId": "qhPT9Xxq-0mecuLvgcP80GQAFPOa",
       "Title": "Open AI events creation on more detailed tracking",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1483,7 +1879,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:12.9870846Z",
+      "RunTimestamp": "2026-10-14T22:31:47.1330797Z",
       "TaskId": "b4aSSkfslUWIXEmfIwKaJGQADExe",
       "Title": "Creating a thank you page for all lead forms for tracking purpose on each platform",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1519,7 +1915,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:15.5246887Z",
+      "RunTimestamp": "2026-10-14T22:31:49.4471008Z",
       "TaskId": "vrDE2BWIMUSU_s6QsxQKrGQAHPPp",
       "Title": "Open Ai Pixel tracking for forms",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1555,7 +1951,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:17.7197300Z",
+      "RunTimestamp": "2026-10-14T22:31:51.7733575Z",
       "TaskId": "sRwBGXos00e2k4zBigGIAWQAPUmg",
       "Title": "AP Newsletter - Impact Report",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1591,7 +1987,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:20.3693323Z",
+      "RunTimestamp": "2026-10-14T22:31:53.9861401Z",
       "TaskId": "panY5gjBbEm7WcJFrDSTuWQAIjze",
       "Title": "Look into audience for LinkedIn based on the GCC file shared",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1627,7 +2023,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:23.1447505Z",
+      "RunTimestamp": "2026-10-14T22:31:56.9060325Z",
       "TaskId": "lwfxeYVKRkyr1PoDBym412QAKf8F",
       "Title": "Women of Steel Playlist - Unlisted",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1663,7 +2059,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:25.6238176Z",
+      "RunTimestamp": "2026-10-14T22:31:59.1964767Z",
       "TaskId": "ZboAyoQAMU2jV6BcqPG12WQAMr-U",
       "Title": "WorkTech Singapore Social post",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1699,7 +2095,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:28.2680742Z",
+      "RunTimestamp": "2026-10-14T22:32:02.5164631Z",
       "TaskId": "eidBTD4wx0ef5Ew2aIMe1WQAITot",
       "Title": "Add a banner - all WL pages",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1735,7 +2131,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:30.8647391Z",
+      "RunTimestamp": "2026-10-14T22:32:06.8196177Z",
       "TaskId": "ta48yj6nekClG4KtBy5UUWQAIwoT",
       "Title": "Planning Ideas - Widen",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1771,7 +2167,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:33.8711401Z",
+      "RunTimestamp": "2026-10-14T22:32:09.7441191Z",
       "TaskId": "0zCmt3_wEUeajg_HWjEu9mQAFNZP",
       "Title": "To check Hubspot segmentation on users - Digital call",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1807,7 +2203,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:36.7780481Z",
+      "RunTimestamp": "2026-10-14T22:32:15.0656382Z",
       "TaskId": "0Di9eFqpfkG1GDPeIxzdl2QABbGp",
       "Title": "Creating webpages for Work Better 7 articles",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1843,7 +2239,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:39.0887248Z",
+      "RunTimestamp": "2026-10-14T22:32:17.5207068Z",
       "TaskId": "Af4lfuRuSkqJ9O-gfRgBHWQAPEPT",
       "Title": "Migration SE Collection webpage in Japanese",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1879,7 +2275,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:41.6136001Z",
+      "RunTimestamp": "2026-10-14T22:32:19.8431449Z",
       "TaskId": "GLcy1eg2bE696YRhutkA32QANKbi",
       "Title": "Migration SE Collection webpage in Chinese",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1915,7 +2311,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:44.4077150Z",
+      "RunTimestamp": "2026-10-14T22:32:22.1685018Z",
       "TaskId": "IvDVqKsoXkCEQ48JG8edCWQAMSvo",
       "Title": "HPS external page",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1951,7 +2347,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:46.6758130Z",
+      "RunTimestamp": "2026-10-14T22:32:24.5980405Z",
       "TaskId": "ovv8TGpKtEifKB57xgF6tGQAOkJf",
       "Title": "Hubspot Segmentation - Japan",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -1987,7 +2383,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:49.9917731Z",
+      "RunTimestamp": "2026-10-14T22:32:27.3833377Z",
       "TaskId": "XdMTSMZ3-0qaTii7SWE_CmQAIdG2",
       "Title": "ABM Targeting",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2023,43 +2419,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:31:53.6308523Z",
-      "TaskId": "NPv-ewMX5UOw_bUAhllGJmQAM7n8",
-      "Title": "Gated LPs for consultation, downloads + tracking",
-      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
-      "BucketId": "Q-B-9LalqE6gH1IrVdcQdmQAI0FV",
-      "BucketName": "Waiting ",
-      "PercentComplete": 50,
-      "Priority": 5,
-      "PriorityLabel": "Medium",
-      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-09-29T06:42:39.1644677Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
-      "CreatedDateTime": "2026-09-29T06:42:39.1645232Z",
-      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
-      "StartDateTime": null,
-      "DueDateTime": "2026-10-13T10:00:00Z",
-      "CompletedDateTime": null,
-      "CompletedBy": null,
-      "Labels": "{\"category5\":true}",
-      "HasDescription": true,
-      "Description": "Hi Adam, as discussed on Teams, we need a gated landing page for enquiries. This ties in with the offer of \"Personalize customization\" that we want our audience to eventually fill up. This is specifically for non-lead gen paid campaigns where we need a page to direct audiences to (i.e. eDMs - email nurture series, organic posts). It will also be used in the final email in our email nurture series._x000D_\nCorrine has shared that there was an existing one in the past brand campaign that we can look to use/update: https://www.steelcase.com/asia-en/work-better-campaign/ but if you feel we just need a simpler LP instead of having all these information, feel free to suggest.",
-      "ChecklistItemCount": 0,
-      "ChecklistSummary": "[]",
-      "ReferenceCount": 0,
-      "ReferenceSummary": "[]",
-      "OrderHint": "8584109427863526779P?",
-      "ConversationThreadId": null,
-      "AssignedToNames": "Aisah Abdul Talib",
-      "PlanName": "Brandcom Project Management",
-      "LabelNames": "Email-EDM",
-      "AssignmentDates": "2026-09-29T00:00:00",
-      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
-      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
-      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
-      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
-      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
-    },
-    {
-      "RunTimestamp": "2026-10-14T12:31:57.2681595Z",
+      "RunTimestamp": "2026-10-14T22:32:29.9171063Z",
       "TaskId": "6Y4ER53BpU6JV-XbW9HTfmQAPQqq",
       "Title": "Creative Agency",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2095,7 +2455,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:00.4297545Z",
+      "RunTimestamp": "2026-10-14T22:32:33.1029480Z",
       "TaskId": "furFAgXsvUi5w6PD27OGsGQAFBnP",
       "Title": "launch new page after form filled in HS",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2131,7 +2491,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:03.0035708Z",
+      "RunTimestamp": "2026-10-14T22:32:35.4663478Z",
       "TaskId": "iwKT-GjT6kOaJ3JJFD9_z2QAMoie",
       "Title": "Contentful Project",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2167,7 +2527,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:06.7303633Z",
+      "RunTimestamp": "2026-10-14T22:32:37.8989283Z",
       "TaskId": "eWzMNDoXhkqBQpzanbpjzGQAJj7Q",
       "Title": "Combining Tanya + Lead-Max",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2203,7 +2563,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:09.1017993Z",
+      "RunTimestamp": "2026-10-14T22:32:41.1113750Z",
       "TaskId": "3atuqLPaoUu7LuKHp43rw2QAIeHI",
       "Title": "exploring checkin solution for Dani's event.",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2239,7 +2599,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:11.5263888Z",
+      "RunTimestamp": "2026-10-14T22:32:43.4213565Z",
       "TaskId": "69DUvv6DpEGI7MvjBPJIVGQAJkXF",
       "Title": "Sorting out tracking issues Tim Merkel discussion with Katy.",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2275,7 +2635,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:15.1140939Z",
+      "RunTimestamp": "2026-10-14T22:32:45.7402396Z",
       "TaskId": "cnIAqFLCJUGxQosU2Xf8YWQADDv9",
       "Title": "Create SOP for all processes",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2311,7 +2671,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:17.3846898Z",
+      "RunTimestamp": "2026-10-14T22:32:48.3055845Z",
       "TaskId": "FRfiIINxl02XF9Di7TUxX2QAPoad",
       "Title": "AI SDR - Talk to Lim",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2347,7 +2707,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:19.7484639Z",
+      "RunTimestamp": "2026-10-14T22:32:50.9579848Z",
       "TaskId": "IRN2kdT_j0K6rGD7b0_ZuGQAJdXG",
       "Title": "Replace Clickup with Microsoft Planner",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2383,7 +2743,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:21.9889101Z",
+      "RunTimestamp": "2026-10-14T22:33:01.9105391Z",
       "TaskId": "G4J5kNOAxUO_fKW-hi3A-WQABaSH",
       "Title": "Dashboard: Email reporting",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2419,7 +2779,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:24.6656305Z",
+      "RunTimestamp": "2026-10-14T22:33:04.5871589Z",
       "TaskId": "fg89gxhDJkS9uDGGnGOLCWQABwXy",
       "Title": "NEW Monthly Report",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2455,7 +2815,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:27.5165154Z",
+      "RunTimestamp": "2026-10-14T22:33:07.1435042Z",
       "TaskId": "HW6o9dzYM06ve9xSOE4cCWQAGMF-",
       "Title": "NEW Weekly Report",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2491,7 +2851,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:30.4447498Z",
+      "RunTimestamp": "2026-10-14T22:33:09.7222463Z",
       "TaskId": "BJCaZwDVt0yZHxaD6uURv2QADRAh",
       "Title": "CX Project",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2527,7 +2887,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:32.9782539Z",
+      "RunTimestamp": "2026-10-14T22:33:22.5152698Z",
       "TaskId": "b-1JPFpdLEKKfZvGnDoML2QAH-WC",
       "Title": "Dealer conference Deck",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2563,7 +2923,43 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:36.1502708Z",
+      "RunTimestamp": "2026-10-14T22:33:25.4473978Z",
+      "TaskId": "NPv-ewMX5UOw_bUAhllGJmQAM7n8",
+      "Title": "Gated LPs for consultation, downloads + tracking",
+      "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
+      "BucketId": "Gw8d1qlHp0G2XXOqpsiKP2QAPmSt",
+      "BucketName": "Done",
+      "PercentComplete": 100,
+      "Priority": 5,
+      "PriorityLabel": "Medium",
+      "AssignedToIds": "{\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\":{\"@odata.type\":\"#microsoft.graph.plannerAssignment\",\"assignedDateTime\":\"2026-09-29T06:42:39.1644677Z\",\"orderHint\":\"\\\"\",\"assignedBy\":{\"user\":{\"displayName\":null,\"id\":\"b0dde2c9-92a4-4d86-a4fd-2a130944956f\"},\"application\":{\"displayName\":null,\"id\":\"75f31797-37c9-498e-8dc9-53c16a36afca\"}}}}",
+      "CreatedDateTime": "2026-09-29T06:42:39.1645232Z",
+      "CreatedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "StartDateTime": null,
+      "DueDateTime": "2026-10-13T10:00:00Z",
+      "CompletedDateTime": "2026-10-14T14:57:01.0242008Z",
+      "CompletedBy": "b0dde2c9-92a4-4d86-a4fd-2a130944956f",
+      "Labels": "{\"category5\":true}",
+      "HasDescription": true,
+      "Description": "Hi Adam, as discussed on Teams, we need a gated landing page for enquiries. This ties in with the offer of \"Personalize customization\" that we want our audience to eventually fill up. This is specifically for non-lead gen paid campaigns where we need a page to direct audiences to (i.e. eDMs - email nurture series, organic posts). It will also be used in the final email in our email nurture series._x000D_\nCorrine has shared that there was an existing one in the past brand campaign that we can look to use/update: https://www.steelcase.com/asia-en/work-better-campaign/ but if you feel we just need a simpler LP instead of having all these information, feel free to suggest.",
+      "ChecklistItemCount": 0,
+      "ChecklistSummary": "[]",
+      "ReferenceCount": 0,
+      "ReferenceSummary": "[]",
+      "OrderHint": "8584109427863526779P?",
+      "ConversationThreadId": null,
+      "AssignedToNames": "Aisah Abdul Talib",
+      "PlanName": "Brandcom Project Management",
+      "LabelNames": "Email-EDM",
+      "AssignmentDates": "2026-09-29T00:00:00",
+      "ChecklistDone": "=(LEN(PlannerTasks[[#This Row],[ChecklistSummary]])-LEN(SUBSTITUTE(PlannerTasks[[#This Row],[ChecklistSummary]],\"\"\"isChecked\"\":true\",\"\")))/LEN(\"\"\"isChecked\"\":true\")",
+      "ChecklistOpen": "=PlannerTasks[[#This Row],[ChecklistItemCount]]-PlannerTasks[[#This Row],[ChecklistDone]]",
+      "IsOverdue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"No\",IF(DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))<TODAY(),\"Yes\",\"No\"))",
+      "DaysOverdue": "=IF(PlannerTasks[[#This Row],[IsOverdue]]=\"Yes\",TODAY()-DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10)),0)",
+      "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
+    },
+    {
+      "RunTimestamp": "2026-10-14T22:33:27.9761903Z",
       "TaskId": "piavqynX0EON-xhZ-CDgAmQAAmxD",
       "Title": "Karman Campaign Kit- Replace Carousel Assets in JP",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2599,7 +2995,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:38.6947186Z",
+      "RunTimestamp": "2026-10-14T22:33:30.8072068Z",
       "TaskId": "L0XrZbCjs0iGjNEkBsSAFGQAEO-T",
       "Title": "Double check if HK will still go live",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2635,7 +3031,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:42.5876900Z",
+      "RunTimestamp": "2026-10-14T22:33:33.0853951Z",
       "TaskId": "W2PVHGlZvEaIMecOH-Jg7GQAIWKQ",
       "Title": "Karman Campaign Kit- Replace Carousel Assets in CN",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2671,7 +3067,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:44.7345017Z",
+      "RunTimestamp": "2026-10-14T22:33:35.7929137Z",
       "TaskId": "ncyb0qG09kaMtGqO6eX3TWQAMc3i",
       "Title": "Brand Assets on Village",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2707,7 +3103,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:47.4443794Z",
+      "RunTimestamp": "2026-10-14T22:33:38.5320571Z",
       "TaskId": "NfvvcewVtUqpSF6JsAoibWQAMAxg",
       "Title": "Create gated LP for Science of Seating (SG Sales booth)",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2743,7 +3139,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:51.1076151Z",
+      "RunTimestamp": "2026-10-14T22:33:41.2492916Z",
       "TaskId": "hlp_qY7gCkiM0frt-hDWj2QAOmhE",
       "Title": "Impact report 2026",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2779,7 +3175,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:53.9873551Z",
+      "RunTimestamp": "2026-10-14T22:33:44.2157720Z",
       "TaskId": "YaYExzpOb0K9JxzQIY9EhWQAL95c",
       "Title": "Mock Up page updates",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2815,7 +3211,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:56.6577520Z",
+      "RunTimestamp": "2026-10-14T22:33:46.5287261Z",
       "TaskId": "HIchy-JP_EWjwiZYNoxudGQACq63",
       "Title": "To include the monthly announcements in Lead Time Village",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2851,7 +3247,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:32:59.0180431Z",
+      "RunTimestamp": "2026-10-14T22:33:48.9732337Z",
       "TaskId": "HkGPawKTzky72t8qfY8DnmQAKJUn",
       "Title": "Create redirect",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2887,7 +3283,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:01.2132535Z",
+      "RunTimestamp": "2026-10-14T22:33:52.3837320Z",
       "TaskId": "3-3Vuy0Pck2MOtnlUS5B4WQALJ9u",
       "Title": "Setup social post for the week",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2923,7 +3319,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:05.0875458Z",
+      "RunTimestamp": "2026-10-14T22:33:54.6314389Z",
       "TaskId": "08NByjMNHUuDuM7gnT-J3mQAJQf4",
       "Title": "Create PO for September LinkedIn spends",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2959,7 +3355,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:07.5776066Z",
+      "RunTimestamp": "2026-10-14T22:33:56.8924165Z",
       "TaskId": "mSaj-JmQMkGP77Y5UWUN4WQAFG4a",
       "Title": "LinkedIn PO creation after invoice is in",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -2995,7 +3391,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:10.1056662Z",
+      "RunTimestamp": "2026-10-14T22:34:00.4615961Z",
       "TaskId": "6Z6GkD2jD0yQxfo9CZJpqGQAPiSn",
       "Title": "Reach out to Terre Nunez on LI invoices",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3031,7 +3427,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:12.4930412Z",
+      "RunTimestamp": "2026-10-14T22:34:03.5374405Z",
       "TaskId": "5yfrD52cFku6PRIWcohRHGQAGN5D",
       "Title": "Prepare a simple PPT for Digital ads",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3067,7 +3463,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:15.6337239Z",
+      "RunTimestamp": "2026-10-14T22:34:06.0181076Z",
       "TaskId": "pp2z6VEuQUmPMUDrwMCRfGQAI_76",
       "Title": "Upload translated social assets (CN, JP, KR) to HPS Campaign Kit page",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3103,7 +3499,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:18.2440914Z",
+      "RunTimestamp": "2026-10-14T22:34:08.4573572Z",
       "TaskId": "miHghbSOHUqoA8hgPGCPrWQALFly",
       "Title": "Schedule eCommerce EDMs",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3139,7 +3535,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:21.1706938Z",
+      "RunTimestamp": "2026-10-14T22:34:22.9484263Z",
       "TaskId": "BjzuTCwKkUuyvpFTZgMC0mQADPsh",
       "Title": "QR Code - Mock Up Experience Kit",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3175,7 +3571,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:23.9299712Z",
+      "RunTimestamp": "2026-10-14T22:34:25.8222736Z",
       "TaskId": "NTWZp_rCf0SmTzpTfcXw2mQAMgvf",
       "Title": "Check LinkedIn minimum spend for media plan",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3211,7 +3607,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:29.6644396Z",
+      "RunTimestamp": "2026-10-14T22:34:28.5136508Z",
       "TaskId": "avgDEXA0rU2sGjeUyHFtMWQACUld",
       "Title": "Creating quick draft for media plan before call",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3247,7 +3643,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:31.8535071Z",
+      "RunTimestamp": "2026-10-14T22:34:31.0825278Z",
       "TaskId": "Z8eNJLmk4Uyh4caBeaQ91mQAOeef",
       "Title": "Impact Report 2025 Comms",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3283,7 +3679,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:34.0767581Z",
+      "RunTimestamp": "2026-10-14T22:34:33.9308629Z",
       "TaskId": "RV709phnUUyrHhJvXA7TFGQAIlUY",
       "Title": "Presentation to Sales Deck",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3319,7 +3715,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:36.7204385Z",
+      "RunTimestamp": "2026-10-14T22:34:36.5152804Z",
       "TaskId": "DWvhU28erUy_yb_KjYyRG2QAH2Z8",
       "Title": "Create a Media Planning template",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3355,7 +3751,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:40.6978122Z",
+      "RunTimestamp": "2026-10-14T22:34:38.8293048Z",
       "TaskId": "s30OqpDkO0Soz6yzOrzfwmQAB0wA",
       "Title": "budget sheet - Are everybody confirm spending according to plan",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3391,7 +3787,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:44.7463914Z",
+      "RunTimestamp": "2026-10-14T22:34:41.3934862Z",
       "TaskId": "B7d_DawnlUWTx5mkf1mtN2QAGfdr",
       "Title": "Engineer Announcement",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3427,7 +3823,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:47.4315814Z",
+      "RunTimestamp": "2026-10-14T22:34:43.6230294Z",
       "TaskId": "m-P8J6jUH0uQlcbBkMtabGQAIWhk",
       "Title": "Update sales PPT - Work Better",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3463,7 +3859,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:51.3908288Z",
+      "RunTimestamp": "2026-10-14T22:34:45.8218007Z",
       "TaskId": "gmhykCfrLkuCjABKj2cx4WQAONX5",
       "Title": "Upload translated WorkLife activation assets (CN, JP, KR) to Migration SE Campaign Kit page",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3499,7 +3895,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:54.7646971Z",
+      "RunTimestamp": "2026-10-14T22:34:48.1451706Z",
       "TaskId": "BqmHqCbGCEG7edCXES4G-WQAEbIG",
       "Title": "Create Segments for Learning on Hubspot for nurture series",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3535,7 +3931,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:33:56.9199233Z",
+      "RunTimestamp": "2026-10-14T22:34:50.8413487Z",
       "TaskId": "IZ7DX3qlUU-4VxFrAZfMTWQAFsR7",
       "Title": "QR Code - Gesture and High Performance Seating Resources",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3571,7 +3967,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:09.8564515Z",
+      "RunTimestamp": "2026-10-14T22:34:53.3683110Z",
       "TaskId": "waYst9GvmEmtvfQkkSQP6WQANpWq",
       "Title": "Schedule social posting for the week",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3607,7 +4003,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:12.1285374Z",
+      "RunTimestamp": "2026-10-14T22:34:55.8175065Z",
       "TaskId": "u734iKBrHEyIRSoQv53MHWQAMxcE",
       "Title": "Impact Report 2026 Web Updates",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3643,7 +4039,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:15.3281709Z",
+      "RunTimestamp": "2026-10-14T22:34:58.1604069Z",
       "TaskId": "7xL5TnIKu0uCoSnHC1ahkmQAOowe",
       "Title": "India BIS Announcement",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3679,7 +4075,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:17.6019438Z",
+      "RunTimestamp": "2026-10-14T22:35:00.8378471Z",
       "TaskId": "5ftjnlh23UyiWayOpSDgUmQADNWi",
       "Title": "Dealer Conference Email",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3715,7 +4111,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:20.4330537Z",
+      "RunTimestamp": "2026-10-14T22:35:03.8368067Z",
       "TaskId": "8T2xCHtA9ES2m7m0VQiEU2QADfNj",
       "Title": "Product page data Aug\u2013Sep 2026 \u2013 MSE, Karman, Be My Guest, HPS",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3751,7 +4147,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:22.9371716Z",
+      "RunTimestamp": "2026-10-14T22:35:06.1152652Z",
       "TaskId": "pDG3Z3mAQEunRpbulbkaMWQAD_gX",
       "Title": "Updating EDM data August & September",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3787,7 +4183,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:26.0112269Z",
+      "RunTimestamp": "2026-10-14T22:35:09.4286538Z",
       "TaskId": "qjbQqFW3rkqU_Y71aNLN0GQAMpk1",
       "Title": "Revise Media Plan",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3823,7 +4219,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:28.5067976Z",
+      "RunTimestamp": "2026-10-14T22:35:11.7015815Z",
       "TaskId": "PuPnGUyE_06atzpo7qV2OGQAIMAJ",
       "Title": "Provide ad targetings to Adi in Excel",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3859,7 +4255,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:31.0628254Z",
+      "RunTimestamp": "2026-10-14T22:35:14.0319314Z",
       "TaskId": "YeY3NDAxIUOwj1HyC1VzpGQAE0Bo",
       "Title": "Monthly Update Lead Times Effective Period and Steelcase Manufacturing Plants Closure",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3895,7 +4291,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:33.7710327Z",
+      "RunTimestamp": "2026-10-14T22:35:17.6305544Z",
       "TaskId": "ype12aslxkiLzsDC8N4tLmQAGSij",
       "Title": "Monthly Update Lead Times Effective Period and Steelcase Manufacturing Plants Closure",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3931,7 +4327,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:36.4613279Z",
+      "RunTimestamp": "2026-10-14T22:35:20.4218899Z",
       "TaskId": "HrtdnEzxQEKAcc3pzkqMNWQAGAjq",
       "Title": "Tanya Announcement",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -3967,7 +4363,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:38.7511951Z",
+      "RunTimestamp": "2026-10-14T22:35:23.2827477Z",
       "TaskId": "VxeEf5JfcUiIv88yy3TSUWQAG5vw",
       "Title": "September Newsletter",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -4003,7 +4399,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:41.7846500Z",
+      "RunTimestamp": "2026-10-14T22:35:25.7432398Z",
       "TaskId": "QF_jvYONe0GchSWWj5sQlWQAEBGG",
       "Title": "Akhil Vinaik Announcement",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -4039,7 +4435,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:44.5198424Z",
+      "RunTimestamp": "2026-10-14T22:35:28.8654621Z",
       "TaskId": "OCBv-4qopE2_ufT6qTveiGQAAhhY",
       "Title": "Priscilla Announcement 9 am",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -4075,7 +4471,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:47.1298829Z",
+      "RunTimestamp": "2026-10-14T22:35:31.5443762Z",
       "TaskId": "PU0u1ATdXU6DdTaKm_70U2QAMEp7",
       "Title": "AP news 1st October",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -4111,7 +4507,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:49.9508626Z",
+      "RunTimestamp": "2026-10-14T22:35:34.2479789Z",
       "TaskId": "0tgMR7oA_kes_VePN6yB7GQAO7d4",
       "Title": "Trackable QR codes for Dealer Conference",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
@@ -4147,7 +4543,7 @@
       "DaysToDue": "=IF(OR(PlannerTasks[[#This Row],[DueDateTime]]=\"\",PlannerTasks[[#This Row],[PercentComplete]]=100),\"\",DATEVALUE(LEFT(PlannerTasks[[#This Row],[DueDateTime]],10))-TODAY())"
     },
     {
-      "RunTimestamp": "2026-10-14T12:34:53.1196979Z",
+      "RunTimestamp": "2026-10-14T22:35:36.6559715Z",
       "TaskId": "0w9XW1ps9kOMurnzSQ20ymQADJVF",
       "Title": "Ocular AP Announcement 2 pm",
       "PlanId": "XrsNRcj-BUCai1Z8LF5rBWQAFG9L",
