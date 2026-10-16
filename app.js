@@ -3663,6 +3663,13 @@ function setupFirestoreConfigUI() {
 
 function initAdminEditorial() {
   const unlockBtn = document.getElementById("btnAdminUnlock");
+  const adminForm = document.getElementById("adminLoginForm");
+  if (adminForm) {
+    adminForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (unlockBtn) unlockBtn.click();
+    });
+  }
   if (unlockBtn) {
     unlockBtn.addEventListener("click", async () => {
       const idVal = document.getElementById("adminAuthIdInput")?.value || "";
@@ -3860,6 +3867,25 @@ function initEventListeners() {
   const searchInput = document.getElementById("searchInput");
   const clearSearchBtn = document.getElementById("clearSearchBtn");
   if (searchInput) {
+    // Reset search on initial load so browser credentials are never retained
+    searchInput.value = "";
+    state.filters.search = "";
+
+    // Guard against browsers that lazily autofill email credentials into the first input
+    const preventCredentialAutofill = () => {
+      if (searchInput && !searchInput.matches(":focus") && searchInput.value) {
+        if (searchInput.value.includes("@") || searchInput.value.includes("gmail") || searchInput.value.includes("steelcase")) {
+          searchInput.value = "";
+          state.filters.search = "";
+          if (clearSearchBtn) clearSearchBtn.style.display = "none";
+          applyFiltersAndRender();
+        }
+      }
+    };
+    setTimeout(preventCredentialAutofill, 50);
+    setTimeout(preventCredentialAutofill, 250);
+    setTimeout(preventCredentialAutofill, 750);
+
     searchInput.addEventListener("input", (e) => {
       state.filters.search = e.target.value;
       if (clearSearchBtn) {

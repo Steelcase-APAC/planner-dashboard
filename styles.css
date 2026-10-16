@@ -453,6 +453,12 @@ body.theme-light .moon-icon { display: block; }
   box-shadow: 0 0 0 1px var(--brand-primary);
 }
 
+.search-box-form {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
 .search-box input {
   background: transparent;
   border: none;
@@ -460,6 +466,22 @@ body.theme-light .moon-icon { display: block; }
   color: var(--text-main);
   font-size: 0.85rem;
   width: 100%;
+}
+
+.search-box input::-webkit-search-decoration,
+.search-box input::-webkit-search-cancel-button,
+.search-box input::-webkit-search-results-button,
+.search-box input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.search-box input:-webkit-autofill,
+.search-box input:-webkit-autofill:hover, 
+.search-box input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--text-main);
+  -webkit-box-shadow: 0 0 0px 1000px var(--bg-primary) inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .search-box input::placeholder {

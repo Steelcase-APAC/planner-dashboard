@@ -97,11 +97,13 @@
     <!-- Global Control & Filter Toolbar -->
     <section class="toolbar">
       <div class="toolbar-inner">
-        <div class="search-box">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="searchInput" placeholder="Search tasks, descriptions, links, assignees..." autocomplete="off">
-          <button id="clearSearchBtn" class="clear-search-btn" style="display: none;">&times;</button>
-        </div>
+        <form class="search-box-form" role="search" onsubmit="event.preventDefault();" autocomplete="off">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="searchInput" name="planner_task_search" placeholder="Search tasks, descriptions, links, assignees..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-lpignore="true" data-1p-ignore="true" data-form-type="other">
+            <button type="button" id="clearSearchBtn" class="clear-search-btn" style="display: none;">&times;</button>
+          </div>
+        </form>
 
         <div class="filters-row">
           <!-- Label / Category Filter -->
@@ -349,7 +351,7 @@
                 <!-- Dynamically populated pills -->
               </div>
               <div class="daytoday-search-wrap">
-                <input type="text" id="dayTodaySearchInput" class="form-input form-input-sm" placeholder="Search day-to-day tasks..." />
+                <input type="search" id="dayTodaySearchInput" class="form-input form-input-sm" placeholder="Search day-to-day tasks..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" data-lpignore="true" />
               </div>
             </div>
 
@@ -661,18 +663,18 @@
             <p class="settings-desc">Log in with administrator credentials to customize all dashboard titles, subtitles, and eyebrows.</p>
 
             <!-- Locked State: Login Form -->
-            <div id="adminLoginForm" class="admin-login-box">
+            <form id="adminLoginForm" class="admin-login-box" onsubmit="event.preventDefault();" autocomplete="on">
               <div class="form-row" style="margin-bottom: 0.6rem;">
-                <input type="text" id="adminAuthIdInput" class="input-text" placeholder="Admin ID / Email" autocomplete="off" autocorrect="off" autocapitalize="none">
+                <input type="text" id="adminAuthIdInput" name="username" class="input-text" placeholder="Admin ID / Email" autocomplete="username" autocorrect="off" autocapitalize="none">
               </div>
               <div class="form-row" style="margin-bottom: 0.75rem;">
-                <input type="password" id="adminAuthPwInput" class="input-text" placeholder="Password" autocomplete="off">
+                <input type="password" id="adminAuthPwInput" name="password" class="input-text" placeholder="Password" autocomplete="current-password">
               </div>
               <div style="display: flex; gap: 0.5rem; align-items: center;">
-                <button type="button" class="btn btn-sm btn-primary" id="btnAdminUnlock">Unlock Editorial Access</button>
+                <button type="submit" class="btn btn-sm btn-primary" id="btnAdminUnlock">Unlock Editorial Access</button>
                 <span id="adminLoginFeedback" class="admin-login-msg" style="display: none; font-size: 0.78rem;"></span>
               </div>
-            </div>
+            </form>
 
             <!-- Unlocked State: Content Management & Controls -->
             <div id="adminUnlockedPanel" class="admin-unlocked-panel" style="display: none;">
