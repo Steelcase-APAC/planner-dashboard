@@ -83,14 +83,43 @@ async function verifyAdminAuth(idVal, pwVal) {
 
 // Default friendly mappings for known Planner IDs in this workspace
 const DEFAULT_BUCKETS = {
-  "f1v-2jW3aU-0dIkZTM4BkGQAEhcr": "Announcements & Comms",
-  "6JvhtLPIeESNdpj7RA8Ir2QAIT3A": "Digital Tracking & Web",
-  "hXWXxcacR0e8OSPDfuHME2QAMCsP": "Operations & Finance",
-  "FcWT8p45_0yAmU3I_Ewh9GQAGRCc": "Media Planning & Sales",
-  "VvFb0U6zYUiz9zKudbSK6WQAP0Yz": "Campaigns & Social Media",
-  "Q-B-9LalqE6gH1IrVdcQdmQAI0FV": "Brand & Events",
-  "Gw8d1qlHp0G2XXOqpsiKP2QAPmSt": "Web & Regional Comms"
+  "f1v-2jW3aU-0dIkZTM4BkGQAEhcr": "[Inbox]",
+  "6JvhtLPIeESNdpj7RA8Ir2QAIT3A": "To Do",
+  "FcWT8p45_0yAmU3I_Ewh9GQAGRCc": "Doing Now",
+  "VvFb0U6zYUiz9zKudbSK6WQAP0Yz": "This Week",
+  "hXWXxcacR0e8OSPDfuHME2QAMCsP": "Next Week",
+  "Q-B-9LalqE6gH1IrVdcQdmQAI0FV": "Waiting",
+  "Gw8d1qlHp0G2XXOqpsiKP2QAPmSt": "Done"
 };
+
+// Microsoft Planner workflow buckets that designate active "In Progress" work:
+// 1. Doing Now, 2. This Week, 3. Next Week, 4. Waiting
+const IN_PROGRESS_BUCKET_IDS = new Set([
+  "FcWT8p45_0yAmU3I_Ewh9GQAGRCc", // Doing Now
+  "VvFb0U6zYUiz9zKudbSK6WQAP0Yz", // This Week
+  "hXWXxcacR0e8OSPDfuHME2QAMCsP", // Next Week
+  "Q-B-9LalqE6gH1IrVdcQdmQAI0FV"  // Waiting
+]);
+
+const IN_PROGRESS_BUCKET_KEYWORDS = ["doing now", "this week", "next week", "waiting"];
+
+function isTaskInProgressBucket(bucketId, bucketName) {
+  if (bucketId && IN_PROGRESS_BUCKET_IDS.has(bucketId)) return true;
+  const name = (bucketName || (bucketId && state.bucketMap[bucketId]) || "").trim().toLowerCase();
+  if (!name) return false;
+  return IN_PROGRESS_BUCKET_KEYWORDS.some(k => name.includes(k));
+}
+
+function computeTaskStatus(percentComplete, completedStr, bucketId, bucketName) {
+  const normBucket = (bucketName || (bucketId && state.bucketMap[bucketId]) || "").trim().toLowerCase();
+  if (percentComplete === 100 || completedStr || normBucket === "done" || bucketId === "Gw8d1qlHp0G2XXOqpsiKP2QAPmSt") {
+    return "COMPLETED";
+  }
+  if (percentComplete > 0 || isTaskInProgressBucket(bucketId, bucketName)) {
+    return "IN_PROGRESS";
+  }
+  return "NOT_STARTED";
+}
 
 const BUCKET_COLORS = [
   "#3b82f6", // Blue
@@ -263,7 +292,24 @@ function loadPreferences() {
 
   const savedBuckets = localStorage.getItem(CONFIG.STORAGE_KEYS.BUCKET_MAP);
   if (savedBuckets) {
-    try { state.bucketMap = { ...DEFAULT_BUCKETS, ...JSON.parse(savedBuckets) }; } catch (e) {}
+    try { 
+      const parsed = JSON.parse(savedBuckets);
+      const legacyMockNames = [
+        "Announcements & Comms", 
+        "Digital Tracking & Web", 
+        "Operations & Finance", 
+        "Media Planning & Sales", 
+        "Campaigns & Social Media", 
+        "Brand & Events", 
+        "Web & Regional Comms"
+      ];
+      Object.keys(parsed).forEach(k => {
+        if (legacyMockNames.includes(parsed[k])) {
+          delete parsed[k];
+        }
+      });
+      state.bucketMap = { ...DEFAULT_BUCKETS, ...parsed }; 
+    } catch (e) {}
   }
 
   const savedAssignees = localStorage.getItem(CONFIG.STORAGE_KEYS.ASSIGNEE_MAP);
@@ -430,12 +476,12 @@ function normalizeRawTaskObjects(rawItems) {
     const completedStr = item.CompletedDateTime || item.completedDate;
     const createdStr = item.CreatedDateTime || item.createdDate;
 
-    let statusKey = "NOT_STARTED";
-    if (percentComplete === 100 || completedStr) {
-      statusKey = "COMPLETED";
-    } else if (percentComplete > 0) {
-      statusKey = "IN_PROGRESS";
-    }
+    const resolvedBucketName = (rawBucketName && rawBucketName !== "N/A" && typeof rawBucketName === "string" && rawBucketName.trim())
+      ? rawBucketName.trim()
+      : (state.bucketMap[bucketId] || "");
+
+    const statusKey = computeTaskStatus(percentComplete, completedStr, bucketId, resolvedBucketName);
+    const effectivePercent = percentComplete > 0 ? percentComplete : (statusKey === "IN_PROGRESS" ? 50 : 0);
 
     let isOverdue = false;
     let dueDateObj = null;
@@ -506,7 +552,8 @@ function normalizeRawTaskObjects(rawItems) {
       id: taskId,
       title: title || "Untitled Task",
       bucketId: bucketId,
-      percentComplete: percentComplete,
+      bucketName: resolvedBucketName,
+      percentComplete: effectivePercent,
       priority: priorityLabel,
       status: statusKey,
       isOverdue: isOverdue,
@@ -684,13 +731,13 @@ function parsePlannerCSV(text) {
       });
     }
 
-    // Determine status key
-    let statusKey = "NOT_STARTED";
-    if (percentComplete === 100 || completedStr) {
-      statusKey = "COMPLETED";
-    } else if (percentComplete > 0) {
-      statusKey = "IN_PROGRESS";
-    }
+    // Determine status key & effective percentage using workflow buckets
+    const resolvedBucketName = (rawBucketName && rawBucketName !== "N/A" && rawBucketName.trim())
+      ? rawBucketName.trim()
+      : (state.bucketMap[bucketId] || "");
+
+    const statusKey = computeTaskStatus(percentComplete, completedStr, bucketId, resolvedBucketName);
+    const effectivePercent = percentComplete > 0 ? percentComplete : (statusKey === "IN_PROGRESS" ? 50 : 0);
 
     // Determine overdue
     let isOverdue = false;
@@ -751,7 +798,8 @@ function parsePlannerCSV(text) {
       id: taskId || `task-${i}`,
       title: title || "Untitled Task",
       bucketId: bucketId,
-      percentComplete: percentComplete,
+      bucketName: resolvedBucketName,
+      percentComplete: effectivePercent,
       priority: priorityLabel,
       status: statusKey,
       isOverdue: isOverdue,
@@ -1529,9 +1577,10 @@ function renderDayToDaySection(allTasks) {
     return false;
   });
 
-  const doingNowTasks = dayTasks.filter(t => getBucketName(t.bucketId).toLowerCase().includes("doing"));
-  const thisWeekTasks = dayTasks.filter(t => getBucketName(t.bucketId).toLowerCase().includes("this week"));
-  const nextWeekTasks = dayTasks.filter(t => getBucketName(t.bucketId).toLowerCase().includes("next week"));
+  const doingNowTasks = dayTasks.filter(t => (t.bucketName || getBucketName(t.bucketId)).toLowerCase().includes("doing"));
+  const thisWeekTasks = dayTasks.filter(t => (t.bucketName || getBucketName(t.bucketId)).toLowerCase().includes("this week"));
+  const nextWeekTasks = dayTasks.filter(t => (t.bucketName || getBucketName(t.bucketId)).toLowerCase().includes("next week"));
+  const waitingTasks = dayTasks.filter(t => (t.bucketName || getBucketName(t.bucketId)).toLowerCase().includes("waiting"));
 
   // Day-to-day filter pills
   const filterContainer = document.getElementById("dayTodayFilterPills");
@@ -1545,6 +1594,7 @@ function renderDayToDaySection(allTasks) {
       { key: "DOING_NOW", label: "Doing Now", count: doingNowTasks.length },
       { key: "THIS_WEEK", label: "This Week", count: thisWeekTasks.length },
       { key: "NEXT_WEEK", label: "Next Week", count: nextWeekTasks.length },
+      { key: "WAITING", label: "Waiting", count: waitingTasks.length },
       { key: "COMPLETED", label: "Completed", count: dayTasks.filter(t => t.status === "COMPLETED").length }
     ];
 
@@ -1575,6 +1625,8 @@ function renderDayToDaySection(allTasks) {
     filtered = thisWeekTasks;
   } else if (state.dayToDayFilter === "NEXT_WEEK") {
     filtered = nextWeekTasks;
+  } else if (state.dayToDayFilter === "WAITING") {
+    filtered = waitingTasks;
   } else if (state.dayToDayFilter === "COMPLETED") {
     filtered = dayTasks.filter(t => t.status === "COMPLETED");
   }
@@ -3092,7 +3144,13 @@ function openTaskModal(taskId) {
   priorityBadge.className = `badge priority-${task.priority.toLowerCase()}`;
 
   const statusBadge = document.getElementById("modalStatusBadge");
-  statusBadge.textContent = task.status === "COMPLETED" ? "Completed (100%)" : task.status === "IN_PROGRESS" ? "In Progress (50%)" : "Not Started (0%)";
+  const taskBucketName = task.bucketName || getBucketName(task.bucketId);
+  const statusDisplay = task.status === "COMPLETED"
+    ? "Completed (100%)"
+    : task.status === "IN_PROGRESS"
+      ? (taskBucketName ? `In Progress (${taskBucketName})` : "In Progress")
+      : "Not Started (0%)";
+  statusBadge.textContent = statusDisplay;
   statusBadge.className = `badge ${task.status === "COMPLETED" ? "status-completed" : task.status === "IN_PROGRESS" ? "status-in-progress" : "status-not-started"}`;
 
   const bucketBadge = document.getElementById("modalBucketBadge");
